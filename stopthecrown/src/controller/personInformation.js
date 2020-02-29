@@ -80,11 +80,12 @@ class PersonInformation {
     }
 
     getRules(currentRules, level){
-        if(currentRules.length == level) return currentRules;
+        const nRules = Object.keys(currentRules).length;
+        if( nRules == level) return currentRules;
 
 
         // New rule
-        const nextLevel = currentRules.length;
+        const nextLevel = nRules;
         const requirements = jsonRules[nextLevel];
         console.log(requirements);
         // Get random from the next level
@@ -105,21 +106,17 @@ class PersonInformation {
             description = description.replace("{" + variable + "}", rVariable);
         }
 
-        var newRule = {}
-        newRule[key] = {
+        var newRule = {
             "description": description,
             "variable": rule["variable"],
             "area": rule["area"],
             "field": rule["field"]
         }
         if (variable.length > 0 ){
-            newRule[key]["value"] = rVariable;
+            newRule["value"] = rVariable;
         }
 
-        console.log(newRule);
-        currentRules.push(       
-            newRule
-        );
+        currentRules[key] = newRule;
         return currentRules; 
     }
 

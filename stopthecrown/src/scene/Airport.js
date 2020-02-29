@@ -33,7 +33,7 @@ export default class Airport extends Phaser.Scene {
         // Init punctuation
         // Add person and documents info
         var person = undefined;
-        person =  personInformation.nextPerson([]);
+        person =  personInformation.nextPerson({});
         
         console.log(person);
 
