@@ -86,7 +86,8 @@ export default class Airport extends Phaser.Scene {
 
         // Load the person icon
         this.updateInformation(person);
-        this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6)
+        this.personImage = this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6)
+        this.setDinamicImage(person.person, this.personImage);
 
         let people_passed = 0;
         let people_quarantained = 0;
@@ -119,7 +120,7 @@ export default class Airport extends Phaser.Scene {
                 score += 10;
             }
             this.setDinamicText(score, this.scoreText, 'Score');
-            person =  personInformation.nextPerson(rules, Math.floor(score/100));
+            person =  personInformation.nextPerson({});
             console.log(person);
             this.updateInformation(person);
 
@@ -140,7 +141,7 @@ export default class Airport extends Phaser.Scene {
                 score += 10;
             }
             this.setDinamicText(score, this.scoreText, 'Score');
-            person =  personInformation.nextPerson(rules, Math.floor(score/100));
+            person =  personInformation.nextPerson({});
             console.log
             this.updateInformation(person);
 
@@ -176,10 +177,15 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(person.passport.birthPlace, this.birthplacePassport, 'Birthplace:');
         this.setDinamicText(person.boardingPass.origin, this.boardingOrigin, "Origin:");
         this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
+        this.setDinamicImage(person.person, this.personImage);
     }
 
     setDinamicText(information, textItem, staticText) {
         textItem.setText(staticText + ` ${information}`);
+    }
+    
+    setDinamicImage(person, imageItem) {
+        imageItem.setTexture(`person-${person.person}`);
     }
 
     enterButtonHoverState(button) {
