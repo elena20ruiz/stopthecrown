@@ -27,7 +27,7 @@ export default class Airport extends Phaser.Scene {
         // Add person and documents info
         var person = undefined;
         var score = 0;
-        person =  personInformation.nextPerson({});
+        person =  personInformation.nextPerson({},0);
         
         console.log(person);
         // console.log(personInformation.nextPerson())
@@ -119,7 +119,8 @@ export default class Airport extends Phaser.Scene {
                 score += 10;
             }
             this.setDinamicText(score, this.scoreText, 'Score');
-            person = personInformation.nextPerson([]);
+            person =  personInformation.nextPerson(rules, Math.floor(score/100));
+            console.log(person);
             this.updateInformation(person);
 
         });
@@ -139,7 +140,8 @@ export default class Airport extends Phaser.Scene {
                 score += 10;
             }
             this.setDinamicText(score, this.scoreText, 'Score');
-            person = personInformation.nextPerson([]);
+            person =  personInformation.nextPerson(rules, Math.floor(score/100));
+            console.log
             this.updateInformation(person);
 
 
