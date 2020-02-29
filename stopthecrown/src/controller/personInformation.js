@@ -1,6 +1,7 @@
 
 import "phaser";
 import variables from '../controller/variables';
+import VirusScanner from '../controller/virusScanner';
 var jsonRules = require('../data/restrictions'); 
 
 
@@ -14,15 +15,16 @@ class PersonInformation {
         const medicalInfo = this.getMedicalInfo();
         const rules = this.getRules(currentRules);
         console.log(passport);  
-        return {
+        var data = {
             'person': person,
             'passport': passport,
             'extraInfo': extraInfo,
             'boardingPass': boardingPass,
             'rules': rules,
             'medical': medicalInfo,
-            'coronavirus': true
         }
+        data["coronavirus"] = VirusScanner.check();
+        return data;
     }
 
 
@@ -53,7 +55,8 @@ class PersonInformation {
             "id": id.toString(),
             "citizenship": citizenship,
             "birthPlace": birthPlace,
-            "birthday": birthday.toLocaleDateString("es-US")
+            "birthday": birthday.toLocaleDateString("es-US"),
+            "age": 2020 - birthday.getFullYear()
         }
     }
 
@@ -70,7 +73,7 @@ class PersonInformation {
 
 
     getMedicalInfo(){
-        const temp = Math.floor(Math.random() * 45) + 34;
+        const temp = Math.floor(Math.random() * (45-34)) + 34;
         return {
             "temperature": temp
         }
@@ -105,10 +108,16 @@ class PersonInformation {
         var newRule = {}
         newRule[key] = {
             "description": description,
-            "variable": rule["variable"]
+            "variable": rule["variable"],
+            "area": rule["area"],
+            "field": rule["field"]
         }
+        if (variable.length > 0 ){
+            newRule[key]["value"] = rVariable;
+        }
+
         console.log(newRule);
-        currentRules.push(
+        currentRules.push(       
             newRule
         );
         return currentRules; 
@@ -125,11 +134,6 @@ class PersonInformation {
         return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
     
-    _checkCoronavirus(rules, person, passport, boardingPass){
-        for(var r in rules) {
-
-        }
-    }
 }
 
 export default new PersonInformation();
