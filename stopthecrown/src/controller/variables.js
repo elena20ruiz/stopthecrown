@@ -9,10 +9,10 @@ const lastNameJson = require('../data/variables/lastname.json');
 
 const variables = {
     'city': cityJson["cities"],
-    'country':  countryJson,
-    'disease': diseasesJson,
-    'name': nameJson,
-    'lastname': lastNameJson
+    'country':  countryJson["countries"],
+    'disease': diseasesJson["disease"],
+    'name': nameJson["names"],
+    'lastName': lastNameJson["last-name"]
 }
 
 export default variables;
