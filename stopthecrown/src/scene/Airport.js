@@ -27,7 +27,7 @@ export default class Airport extends Phaser.Scene {
         // Add person and documents info
         var person = undefined;
         var score = 0;
-        person =  personInformation.nextPerson([]);
+        person =  personInformation.nextPerson({});
         
         console.log(person);
         // console.log(personInformation.nextPerson())
@@ -77,10 +77,11 @@ export default class Airport extends Phaser.Scene {
         this.rulesTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/1.35)/1.22, 'RULES', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.add.existing(this.rulesTitle);
 
-        console.log(person.rules.length)
-        for (let i = 1; i <= person.rules.length; ++i) {
-            this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 8, 'rule:', { fill: '#000000', fontSize: '20px'});           
-            this.setDinamicText(person.rules[i], this.rule, `${i}-`);
+        let rules = Object.keys(person.rules);
+
+        for (let i = 0; i < rules.length; ++i) {
+            this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50 + (3*i), 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.setDinamicText(rules[i], this.rule, `${i+1}-`);
         }
 
         // Load the person icon
@@ -177,7 +178,6 @@ export default class Airport extends Phaser.Scene {
 
     setDinamicText(information, textItem, staticText) {
         textItem.setText(staticText + ` ${information}`);
-        console.log(staticText + ` ${information}`)
     }
 
     enterButtonHoverState(button) {
