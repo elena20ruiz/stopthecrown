@@ -2,7 +2,7 @@
 
 {
     "0": [
-        {"The person comes from {ctiy}" : "The coronaviris now is extended throught {city}. Now you have to check the person procedency"},
+        {"The person comes from {city}" : "The coronaviris now is extended throught {city}. Now you have to check the person procedency"},
         {"The person comes from {country}": ""}
     ],
     "1": [
