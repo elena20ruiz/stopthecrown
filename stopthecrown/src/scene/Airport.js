@@ -19,12 +19,13 @@ export default class Airport extends Phaser.Scene {
     create() {
 
         // TODO: Append backgrounds
-
+        let score = 0;
         let people_passed = 0;
         let people_quarantained = 0;
 
         this.quarantine_text = this.add.text(100, 200, 'hi');
-        this.pass_text = this.add.text(100,300, 'bye')
+        this.pass_text = this.add.text(100,300, 'bye');
+        this.score_text = this.add.text(400,400, '0');
     
         this.quarantine = new Phaser.GameObjects.Text(this, 100, 100, 'Quarantine', { fill: '#f00'});
         this.pass = new Phaser.GameObjects.Text(this, 200, 100, 'Pass', { fill: '#0f0'});
@@ -40,6 +41,24 @@ export default class Airport extends Phaser.Scene {
           .on('pointerup', () => {
             this.updateClickCountText(++people_quarantained, this.quarantine_text, 'Quarantained');
             this.enterButtonHoverState(this.quarantine);
+            console.log(person);
+
+            if (person.coronavirus == false) {
+                score -= 10;
+                if (score < 0){
+                    this.scene.start('final');
+                }
+            } 
+            else {
+                score += 10;
+                console.log('updated score');
+            }
+
+            this.score_text.setText(score);
+            person =  personInformation.nextPerson([]);
+            console.log(person);
+            console.log(person.coronavirus);
+
         });
     
         this.pass
@@ -50,19 +69,32 @@ export default class Airport extends Phaser.Scene {
         .on('pointerup', () => {
             this.updateClickCountText(++people_passed, this.pass_text, 'Pass');
             this.enterButtonHoverState(this.pass);
-        });
+            
+            if (person.coronavirus === true) {
+                this.scene.start('final');
+            } else {
+                score += 10;
+                console.log('updated score');
+            }
+            
+            this.score_text.setText(score);
+            person = personInformation.nextPerson([]);
+            console.log(person);
+            console.log(person.coronavirus);
+
+        }, this);
   
         this.updateClickCountText(people_passed, this.pass_text, 'Pass');
         this.updateClickCountText(people_quarantained, this.quarantine_text, 'Quarantained');
-
-        // Init score
-        let score = 0;
+    
+        console.log(score);
 
         // Add person and documents info
         var person = undefined;
         person =  personInformation.nextPerson([]);
         console.log(person);
-
+        console.log(person.coronavirus);
+        
     }// create
 
     update() {
