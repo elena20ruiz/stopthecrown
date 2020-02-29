@@ -2,7 +2,7 @@
 
 
 function get(){
-
+    return 'hola'
 }
 
 
