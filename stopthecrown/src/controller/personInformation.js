@@ -53,11 +53,14 @@ class PersonInformation {
     }
 
     getExtraInfo(){
-        return "hola";
+        return "hola"
     }
 
     getBoardingPass(){
-        return "hola";
+        const city = this.getVariable("city");
+        return {
+            "origin": city
+        }
     }
 
     getRules(currentRules, level){
