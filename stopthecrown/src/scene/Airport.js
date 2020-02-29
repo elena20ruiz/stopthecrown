@@ -13,22 +13,13 @@ export default class Airport extends Phaser.Scene {
         // - Passport background
         // - Boarding pass background
 
-        this.load.image('logo', 'assets/logo.png');
+        this.load.image('logo', 'assets/background.jpg');
     }
 
     create() {
 
         // TODO: Append backgrounds
         var logo = this.add.image(400, 150, 'logo');
-
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: 'Power2',
-            yoyo: true,
-            loop: -1
-        });
 
         // Init punctuation
         // Add person and documents info
