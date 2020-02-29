@@ -11,6 +11,7 @@ class PersonInformation {
         const passport = this.getPassport();
         const extraInfo = this.getExtraInfo()
         const boardingPass = this.getBoardingPass()
+        const medicalInfo = this.getMedicalInfo();
         const rules = this.getRules(currentRules);
         console.log(passport);  
         return {
@@ -19,13 +20,17 @@ class PersonInformation {
             'extraInfo': extraInfo,
             'boardingPass': boardingPass,
             'rules': rules,
+            'medical': medicalInfo,
             'coronavirus': true
         }
     }
 
 
     getPerson(){
-        return "hola";
+        var max = 6;
+        const random = Math.floor(Math.random() * max) + 1;
+        const path = 'data/people/man-' + random.valueOf() + '.png';
+        return path;
     }
 
     getPassport(){
@@ -63,30 +68,46 @@ class PersonInformation {
         }
     }
 
+
+    getMedicalInfo(){
+        const temp = Math.floor(Math.random() * 45) + 34;
+        return {
+            "temperature": temp
+        }
+    }
+
     getRules(currentRules, level){
         if(currentRules.length == level) return currentRules;
-        const nextLevel = currentRules.length;
 
-        // Get random
+
+        // New rule
+        const nextLevel = currentRules.length;
         const requirements = jsonRules[nextLevel];
-        
-        const max = requirements.length - 1;
+        console.log(requirements);
+        // Get random from the next level
+        const ruleKeys = Object.keys(requirements);
+        const max = ruleKeys.length - 1;
         const random = Math.floor(Math.random() * Math.floor(max));
 
-        var rule = requirements[random];
-        var key = Object.keys(rule)[0];
-        var value = Object.values(rule)[0];
+        // Get random position
+        var key = ruleKeys[random];
+        var rule = requirements[key];
+        var description = rule["description"];
 
         var variable = key.match(/{(.*)}/).pop();
         if(variable.length > 0){
             var rVariable = this.getVariable(variable);
             
             key = key.replace("{" + variable + "}", rVariable);
-            value = value.replace("{" + variable + "}", rVariable);
+            description = description.replace("{" + variable + "}", rVariable);
         }
 
         var newRule = {}
-        newRule[key] = value
+        newRule[key] = {
+            "description": description,
+            "variable": rule["variable"]
+        }
+        console.log(newRule);
         currentRules.push(
             newRule
         );
@@ -104,6 +125,11 @@ class PersonInformation {
         return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
     
+    _checkCoronavirus(rules, person, passport, boardingPass){
+        for(var r in rules) {
+
+        }
+    }
 }
 
 export default new PersonInformation();
