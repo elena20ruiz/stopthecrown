@@ -1,12 +1,11 @@
 import 'phaser';
-import informationFactory from './controller/informationFactory';
-
 
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    mode: Phaser.Scale.FIT,
+    width: window.innerWidth,
+	height: window.innerHeight,
     scene: {
         preload: preload,
         create: create,
@@ -24,24 +23,14 @@ function preload ()
     // - Boarding pass background
 
 
-    this.load.image('logo', 'assets/logo.png');
+    this.load.image('logo', 'assets/background.jpg');
 }
 
 function create ()
 {
 
     // TODO: Append backgrounds
-    var logo = this.add.image(400, 150, 'logo');
-
-    this.tweens.add({
-        targets: logo,
-        y: 450,
-        duration: 2000,
-        ease: 'Power2',
-        yoyo: true,
-        loop: -1
-    });
-
+    this.add.image(0, 0, 'logo').setOrigin(0, 0)
     // Init punctuation
     // Add person and documents info
 
