@@ -55,7 +55,9 @@ export default class Airport extends Phaser.Scene {
         this.updateClickCountText(people_passed, this.pass_text, 'Pass');
         this.updateClickCountText(people_quarantained, this.quarantine_text, 'Quarantained');
 
-        // Init punctuation
+        // Init score
+        let score = 0;
+
         // Add person and documents info
         // console.log(personInformation.nextPerson())
 
