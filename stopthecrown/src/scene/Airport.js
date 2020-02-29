@@ -19,24 +19,50 @@ export default class Airport extends Phaser.Scene {
     create() {
 
         // TODO: Append backgrounds
-        var logo = this.add.image(400, 150, 'logo');
 
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: 'Power2',
-            yoyo: true,
-            loop: -1
+        let people_passed = 0;
+        let people_quarantained = 0;
+
+        this.quarantine_text = this.add.text(100, 200, 'hi');
+        this.pass_text = this.add.text(100,300, 'bye')
+    
+        this.quarantine = new Phaser.GameObjects.Text(this, 100, 100, 'Quarantine', { fill: '#f00'});
+        this.pass = new Phaser.GameObjects.Text(this, 200, 100, 'Pass', { fill: '#0f0'});
+
+        this.add.existing(this.pass);
+        this.add.existing(this.quarantine);
+
+        this.quarantine
+          .setInteractive({ useHandCursor: true })
+          .on('pointerover', () => this.enterButtonHoverState(this.quarantine) )
+          .on('pointerout', () => this.enterButtonRestState(this.quarantine, '#f00') )
+          .on('pointerdown', () => this.enterButtonActiveState(this.quarantine) )
+          .on('pointerup', () => {
+            this.updateClickCountText(++people_quarantained, this.quarantine_text, 'Quarantained');
+            this.enterButtonHoverState(this.quarantine);
         });
+    
+        this.pass
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => this.enterButtonHoverState(this.pass) )
+        .on('pointerout', () => this.enterButtonRestState(this.pass, '#0f0') )
+        .on('pointerdown', () => this.enterButtonActiveState(this.pass) )
+        .on('pointerup', () => {
+            this.updateClickCountText(++people_passed, this.pass_text, 'Pass');
+            this.enterButtonHoverState(this.pass);
+        });
+  
+        this.updateClickCountText(people_passed, this.pass_text, 'Pass');
+        this.updateClickCountText(people_quarantained, this.quarantine_text, 'Quarantained');
 
         // Init punctuation
         // Add person and documents info
-        console.log(personInformation.nextPerson())
+        // console.log(personInformation.nextPerson())
 
     }// create
 
     update() {
+
 
         // Check click
 
@@ -45,4 +71,22 @@ export default class Airport extends Phaser.Scene {
 
         // If pass -> next person
     }
+
+
+    updateClickCountText(clickCount, textItem, test) {
+        textItem.setText(test + ` ${clickCount}`);
+    }
+
+    enterButtonHoverState(button) {
+        button.setStyle({ fill: '#ff0'});
+    }
+
+    enterButtonRestState(button, color) {
+        button.setStyle({ fill: color});
+    }
+
+    enterButtonActiveState(button) {
+        button.setStyle({ fill: '#0ff' });
+    }
+    
 }
