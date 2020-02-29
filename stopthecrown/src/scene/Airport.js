@@ -26,6 +26,7 @@ export default class Airport extends Phaser.Scene {
 
         // Add person and documents info
         var person = undefined;
+        var score = 0;
         person =  personInformation.nextPerson({});
         
         console.log(person);
@@ -47,22 +48,16 @@ export default class Airport extends Phaser.Scene {
         this.add.existing(this.passportTitle);
 
         this.IDPassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 50, 'ID:', { fill: '#000000', fontSize: '20px'});
-        this.setDinamicText(person.passport.id, this.IDPassport, 'ID:');
 
         this.namePassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 80, 'Name:', { fill: '#000000', fontSize: '20px'});
-        this.setDinamicText(person.passport.name, this.namePassport, 'Name:');
 
         this.lastNamePassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 110, 'Last Name:', { fill: '#000000', fontSize: '20px'});
-        this.setDinamicText(person.passport.lastName, this.lastNamePassport, 'Last Name:');
 
         this.citizenshipPassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 140, 'Citizenship:', { fill: '#000000', fontSize: '20px'});
-        this.setDinamicText(person.passport.citizenship, this.citizenshipPassport, 'Citizenship:');
 
         this.birthplacePassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 170, 'Birthplace:', { fill: '#000000', fontSize: '20px'});
-        this.setDinamicText(person.passport.birthPlace, this.birthplacePassport, 'Birthplace:');
 
         this.birthdayPassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 200, 'Birthday:', { fill: '#000000', fontSize: '20px'});
-        this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
 
         // Set the boarding card with the information
 
@@ -73,7 +68,6 @@ export default class Airport extends Phaser.Scene {
         this.add.existing(this.boardingTitle);
 
         this.boardingOrigin = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/2.05)/1.15) + 50, 'Origin:', { fill: '#000000', fontSize: '20px'});
-        this.setDinamicText(person.boardingPass.origin, this.boardingOrigin, "Origin:");
 
         // Set the rules
 
@@ -91,6 +85,7 @@ export default class Airport extends Phaser.Scene {
         }
 
         // Load the person icon
+        this.updateInformation(person);
         this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6)
 
         let people_passed = 0;
@@ -113,6 +108,20 @@ export default class Airport extends Phaser.Scene {
           .on('pointerup', () => {
             this.setDinamicText(++people_quarantained, this.quarantine_text, 'Quarantained');
             this.enterButtonHoverState(this.quarantine);
+
+            if (person.coronavirus == false) {
+                score -= 10;
+                if (score < 0){
+                    this.scene.start('final');
+                }
+            } 
+            else {
+                score += 10;
+            }
+            this.setDinamicText(score, this.scoreText, 'Score');
+            person = personInformation.nextPerson([]);
+            this.updateInformation(person);
+
         });
     
         this.pass
@@ -123,6 +132,17 @@ export default class Airport extends Phaser.Scene {
         .on('pointerup', () => {
             this.setDinamicText(++people_passed, this.pass_text, 'Pass');
             this.enterButtonHoverState(this.pass);
+
+            if (person.coronavirus === true) {
+                this.scene.start('final');
+            } else {
+                score += 10;
+            }
+            this.setDinamicText(score, this.scoreText, 'Score');
+            person = personInformation.nextPerson([]);
+            this.updateInformation(person);
+
+
         });
   
         this.setDinamicText(people_passed, this.pass_text, 'Pass');
@@ -130,10 +150,8 @@ export default class Airport extends Phaser.Scene {
 
 
         // Set score
-        let score = 0;
         this.scoreBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/9,  window.innerHeight/9, window.innerWidth/7, window.innerHeight/7, 0xA1A1A1, 0.8);
         this.add.existing(this.scoreBox);
-
         this.scoreText = this.add.text((window.innerWidth/9)/1.5, (window.innerHeight/9)/1.2, 'Score', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.setDinamicText(score, this.scoreText, 'Score');
     }
@@ -148,6 +166,15 @@ export default class Airport extends Phaser.Scene {
         // If pass -> next person
     }
 
+    updateInformation(person){
+        this.setDinamicText(person.passport.id, this.IDPassport, 'ID:');
+        this.setDinamicText(person.passport.name, this.namePassport, 'Name:');
+        this.setDinamicText(person.passport.lastName, this.lastNamePassport, 'Last Name:');
+        this.setDinamicText(person.passport.citizenship, this.citizenshipPassport, 'Citizenship:');
+        this.setDinamicText(person.passport.birthPlace, this.birthplacePassport, 'Birthplace:');
+        this.setDinamicText(person.boardingPass.origin, this.boardingOrigin, "Origin:");
+        this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
+    }
 
     setDinamicText(information, textItem, staticText) {
         textItem.setText(staticText + ` ${information}`);
