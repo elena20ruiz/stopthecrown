@@ -27,8 +27,7 @@
     ],
     "1": [
         "The person has a dry cough",
-        "The temperature is {temperature}",
-        "The person studies/works at {place}"
+        "The temperature is {temperature}"
     ],
     "2": [ 
         "The person was born in {city}",
