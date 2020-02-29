@@ -14,12 +14,12 @@ export default class Airport extends Phaser.Scene {
         // - Boarding pass background
 
         this.load.image('bg', 'assets/background.jpg');
-        this.load.image('person-0', 'src/data/people/man-1.png');
-        this.load.image('person-1', 'src/data/people/man-2.png');
-        this.load.image('person-2', 'src/data/people/man-3.png');
-        this.load.image('person-3', 'src/data/people/man-4.png');
-        this.load.image('person-4', 'src/data/people/man-5.png');
-        this.load.image('person-5', 'src/data/people/man-6.png');
+        this.load.image('person-1', 'src/data/people/man-1.png');
+        this.load.image('person-2', 'src/data/people/man-2.png');
+        this.load.image('person-3', 'src/data/people/man-3.png');
+        this.load.image('person-4', 'src/data/people/man-4.png');
+        this.load.image('person-5', 'src/data/people/man-5.png');
+        this.load.image('person-6', 'src/data/people/man-6.png');
     }
 
     create() { 
@@ -89,14 +89,17 @@ export default class Airport extends Phaser.Scene {
             this.setDinamicText(person.rules[i], this.rule, `${i}-`);
         }
 
+        // Load the person icon
+        this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6)
+
         let people_passed = 0;
         let people_quarantained = 0;
 
-        this.quarantine_text = this.add.text(window.innerWidth/5.5, window.innerHeight/1.2, 'hi', { fill: '#000000', fontSize: '20px', backgroundColor: '#FFFFFF' });
-        this.pass_text = this.add.text(window.innerWidth/3, window.innerHeight/1.2, 'bye', { fill: '#000000', fontSize: '20px', backgroundColor: '#FFFFFF' })
+        this.quarantine_text = this.add.text(window.innerWidth/3.9, window.innerHeight/1.2, 'hi', { fill: '#000000', fontSize: '20px', backgroundColor: '#FFFFFF' });
+        this.pass_text = this.add.text(window.innerWidth/2.5, window.innerHeight/1.2, 'bye', { fill: '#000000', fontSize: '20px', backgroundColor: '#FFFFFF' })
     
-        this.quarantine = new Phaser.GameObjects.Text(this, window.innerWidth/5.5, window.innerHeight/1.3, 'Quarantine', { fill: '#000000', backgroundColor: '#f00', fontSize: '30px', fontStyle: 'bold'});
-        this.pass = new Phaser.GameObjects.Text(this, window.innerWidth/3, window.innerHeight/1.3, 'Pass', { fill: '#000000', backgroundColor: '#0f0', fontSize: '30px', fontStyle: 'bold'});
+        this.quarantine = new Phaser.GameObjects.Text(this, window.innerWidth/3.9, window.innerHeight/1.3, 'Quarantine', { fill: '#000000', backgroundColor: '#f00', fontSize: '30px', fontStyle: 'bold'});
+        this.pass = new Phaser.GameObjects.Text(this, window.innerWidth/2.5, window.innerHeight/1.3, 'Pass', { fill: '#000000', backgroundColor: '#0f0', fontSize: '30px', fontStyle: 'bold'});
 
         this.add.existing(this.pass);
         this.add.existing(this.quarantine);
@@ -124,16 +127,15 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(people_passed, this.pass_text, 'Pass');
         this.setDinamicText(people_quarantained, this.quarantine_text, 'Quarantained');
 
+
         // Set score
         let score = 0;
+        this.scoreBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/9,  window.innerHeight/9, window.innerWidth/7, window.innerHeight/7, 0xA1A1A1, 0.8);
+        this.add.existing(this.scoreBox);
 
-        // Load the person icon
-        this.add.image(window.innerWidth/3.5, window.innerHeight/2.3, `person-${person.person}`).setScale(.6)
-        
-
-        
-
-    }// create
+        this.scoreText = this.add.text((window.innerWidth/9)/1.5, (window.innerHeight/9)/1.2, 'Score', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+        this.setDinamicText(score, this.scoreText, 'Score');
+    }
 
     update() {
 
@@ -148,6 +150,7 @@ export default class Airport extends Phaser.Scene {
 
     setDinamicText(information, textItem, staticText) {
         textItem.setText(staticText + ` ${information}`);
+        console.log(staticText + ` ${information}`)
     }
 
     enterButtonHoverState(button) {
