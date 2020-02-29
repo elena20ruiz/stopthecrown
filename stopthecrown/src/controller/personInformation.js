@@ -29,8 +29,7 @@ class PersonInformation {
     getPerson(){
         var max = 6;
         const random = Math.floor(Math.random() * max) + 1;
-        const path = 'data/people/man-' + random.valueOf() + '.png';
-        return path;
+        return random.valueOf();
     }
 
     getPassport(){
