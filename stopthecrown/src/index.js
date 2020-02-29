@@ -7,7 +7,8 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
@@ -15,11 +16,20 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
+    // TODO: Load backgrounds 
+    // - Main background
+    // - Passport background
+    // - Boarding pass background
+
+
     this.load.image('logo', 'assets/logo.png');
 }
 
 function create ()
 {
+
+    // TODO: Append backgrounds
+    // Create punctuation
     var logo = this.add.image(400, 150, 'logo');
 
     this.tweens.add({
@@ -31,4 +41,14 @@ function create ()
         loop: -1
     });
 
+}
+
+function update() {
+
+    // Update person + documents
+
+
+    // Check click
+
+    // Check if wins or not
 }
