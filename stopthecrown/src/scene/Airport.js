@@ -13,13 +13,27 @@ export default class Airport extends Phaser.Scene {
         // - Passport background
         // - Boarding pass background
 
-        this.load.image('logo', 'assets/background.jpg');
+        this.load.image('bg', 'assets/background.jpg');
     }
 
-    create() {
+    create() { 
+        // Set Background
+        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
+        this.add.image(window.innerWidth/2, window.innerHeight/5, 'bg');
 
-        // TODO: Append backgrounds
-        var logo = this.add.image(400, 150, 'logo');
+        // Set left column
+        this.leftcolumn = new Phaser.GameObjects.Rectangle(this, window.innerWidth+150,  window.innerHeight/2, window.innerWidth, window.innerHeight, 0xA1A1A1, 0.8);
+        this.add.existing(this.leftcolumn);
+
+        // Set passport card with the information
+        this.passport = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight-500, window.innerWidth/3, window.innerHeight-300, 0xFFFFFF);
+        this.add.existing(this.passport);
+
+        // Set the boarding card with the information
+
+
+
+        // Set the rules
 
         // Init punctuation
         // Add person and documents info
