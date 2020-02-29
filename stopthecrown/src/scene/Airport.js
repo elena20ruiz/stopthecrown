@@ -26,6 +26,7 @@ export default class Airport extends Phaser.Scene {
 
         // Add person and documents info
         var person = undefined;
+        var score = 0;
         person =  personInformation.nextPerson([]);
         
         console.log(person);
@@ -109,6 +110,19 @@ export default class Airport extends Phaser.Scene {
           .on('pointerup', () => {
             this.setDinamicText(++people_quarantained, this.quarantine_text, 'Quarantained');
             this.enterButtonHoverState(this.quarantine);
+
+            if (person.coronavirus == false) {
+                score -= 10;
+                if (score < 0){
+                    this.scene.start('final');
+                }
+            } 
+            else {
+                score += 10;
+            }
+
+            person = personInformation.nextPerson([]);
+
         });
     
         this.pass
@@ -119,13 +133,20 @@ export default class Airport extends Phaser.Scene {
         .on('pointerup', () => {
             this.setDinamicText(++people_passed, this.pass_text, 'Pass');
             this.enterButtonHoverState(this.pass);
+
+            if (person.coronavirus === true) {
+                this.scene.start('final');
+            } else {
+                score += 10;
+            }
+
+            person = personInformation.nextPerson([]);
+
         });
   
         this.setDinamicText(people_passed, this.pass_text, 'Pass');
         this.setDinamicText(people_quarantained, this.quarantine_text, 'Quarantained');
 
-        // Set score
-        let score = 0;
 
         // Load the person icon
         this.add.image(window.innerWidth/3.5, window.innerHeight/2.3, `person-${person.person}`).setScale(.6)
