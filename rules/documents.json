@@ -11,7 +11,6 @@
         "origin": "{city}"
     },
     "extra": {
-        "disease": "{diseases}",
-        "study/work": "{place}" 
+        "disease": "{diseases}"
     }
 }
