@@ -102,3 +102,22 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+# System and IDE files
+Thumbs.db
+.DS_Store
+.idea
+*.suo
+*.sublime-project
+*.sublime-workspace
+
+# Vendors
+node_modules/
+
+# Build
+build/
+/npm-debug.log
+
+./stopthecrown/build/
+./stopthecrown/package-lock.json

@@ -59,7 +59,9 @@ export default class Airport extends Phaser.Scene {
         let score = 0;
 
         // Add person and documents info
-        // console.log(personInformation.nextPerson())
+        var person = undefined;
+        person =  personInformation.nextPerson([]);
+        console.log(person);
 
     }// create
 

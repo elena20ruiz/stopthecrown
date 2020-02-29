@@ -1,0 +1,16 @@
+{
+    "passport": {
+        "name": "{name}",
+        "lastname": "{lastname}",
+        "id": "{id}",
+        "citizenship": "{country}",
+        "birthplace": "{country}",
+        "birthday": "{date}"
+    },
+    "boarding pass": {
+        "origin": "{city}"
+    },
+    "extra": {
+        "disease": "{diseases}"
+    }
+}
