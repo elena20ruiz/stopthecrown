@@ -14,6 +14,10 @@ export default class Final extends Phaser.Scene {
     }
 
     create() {
+        
+        // let lose = this.sound.add('lose-sound', { mute: false, volume: 1.5, rate: 1, detune: 0, seek: 0, loop: false, delay: 0 });
+        // lose.play();
+
         // Set Background
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'corona');
         
