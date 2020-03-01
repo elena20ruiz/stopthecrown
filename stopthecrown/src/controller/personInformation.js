@@ -80,6 +80,7 @@ class PersonInformation {
 
     getRules(currentRules, level){
         const nRules = Object.keys(currentRules).length;
+        console.log('Levels' + nRules + ' ' + level);
         if( nRules == level) return currentRules;
 
 
@@ -114,13 +115,17 @@ class PersonInformation {
         if (variable.length > 0 ){
             newRule["value"] = rVariable;
         }
-
+        console.log("Abans")
+        console.log(currentRules);
         currentRules[key] = newRule;
+        console.log("Despres")
+        console.log(currentRules)
         return currentRules; 
     }
 
     getVariable(variable){
         var content = variables[variable];
+
         var max = content.length - 1;
         const random = Math.floor(Math.random() * Math.floor(max));
         return content[random];
