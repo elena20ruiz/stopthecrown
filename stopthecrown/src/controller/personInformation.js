@@ -13,7 +13,7 @@ class PersonInformation {
         const extraInfo = this.getExtraInfo()
         const boardingPass = this.getBoardingPass()
         const medicalInfo = this.getMedicalInfo();
-        const rules = this.getRules(currentRules);
+        const rules = this.getRules(currentRules, level);
         console.log(passport);  
         var data = {
             'person': person,
