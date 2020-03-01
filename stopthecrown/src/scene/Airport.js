@@ -200,6 +200,21 @@ export default class Airport extends Phaser.Scene {
         let rules = Object.keys(person.rules);
         console.log(rules)
 
+        if (this.rule != undefined){
+            this.rule.destroy();
+        }
+        if (this.rule2 != undefined){
+            this.rule2.destroy();
+        }
+        if (this.rule3 != undefined){
+            this.rule3.destroy();
+        }
+        if (this.rule4 != undefined){
+            this.rule4.destroy();
+        }
+        if (this.rule5 != undefined){
+            this.rule5.destroy();
+        }
         if (rules.length === 1) {
             this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[0], this.rule, `${1}-`);
@@ -207,37 +222,37 @@ export default class Airport extends Phaser.Scene {
         else if (rules.length === 2) {
             this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[0], this.rule, `${1}-`);
-            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 54, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 80, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[1], this.rule2, `${2}-`);
         }
         else if (rules.length === 3) {
             this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[0], this.rule, `${1}-`);
-            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 54, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 80, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[1], this.rule2, `${2}-`);
-            this.rule3 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 58, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule3 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 110, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[2], this.rule3, `${3}-`);
         }
         else if (rules.length === 4) {
             this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[0], this.rule, `${1}-`);
-            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 54, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 80, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[1], this.rule2, `${2}-`);
-            this.rule3 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 58, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule3 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 110, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[2], this.rule3, `${3}-`);
-            this.rule4 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 62, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule4 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 140, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[3], this.rule4, `${4}-`);
         }
         else if (rules.length === 5) {
             this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[0], this.rule, `${1}-`);
-            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 54, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule2 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 80, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[1], this.rule2, `${2}-`);
-            this.rule3 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 58, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule3 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 110, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[2], this.rule3, `${3}-`);
-            this.rule4 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 62, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule4 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 140, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[3], this.rule4, `${4}-`);
-            this.rule5 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 68, 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.rule5 = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 170, 'rule:', { fill: '#000000', fontSize: '20px'});           
             this.setDinamicText(rules[4], this.rule5, `${5}-`);
         }
     }
