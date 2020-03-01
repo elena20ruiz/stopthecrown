@@ -74,9 +74,6 @@ export default class Airport extends Phaser.Scene {
         this.rulesTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/1.35)/1.22, 'RULES', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.add.existing(this.rulesTitle);
 
-        let rules = Object.keys(person.rules);
-
-
         // Load the person icon
         this.personImage = this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6);
         this.updateInformation(person);
@@ -161,6 +158,19 @@ export default class Airport extends Phaser.Scene {
         this.medicalBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/7.2, window.innerHeight/2.4, window.innerWidth/5, window.innerHeight/3, 0xFFFFFF);
         this.add.existing(this.medicalBox).setVisible(false);
 
+        this.medicalTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/7.2)/2.9, (window.innerHeight/2.4)/1.5, 'MEDICAL INFORMATION', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+        this.add.existing(this.medicalTitle).setVisible(false);
+
+        this.medicalTemperature = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.5) + 50, 'Temperature:', { fill: '#000000', fontSize: '20px'});
+        this.setDinamicText(person.medical.temperature, this.medicalTemperature, 'Temperature:');
+        this.medicalTemperature.setVisible(false);
+
+        /*
+        this.medicalDissease = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.5) + 80, 'Disease:', { fill: '#000000', fontSize: '20px'});
+        this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
+        this.medicalDissease.setVisible(false);
+        */
+
         this.medicalButton
           .setInteractive({ useHandCursor: true })
           .on('pointerover', () => this.enterButtonHoverState(this.medicalButton) )
@@ -169,6 +179,9 @@ export default class Airport extends Phaser.Scene {
           .on('pointerup', () => {
               console.log("h")
               this.add.existing(this.medicalBox).setVisible(true);
+              this.add.existing(this.medicalTitle).setVisible(true);
+              this.medicalTemperature.setVisible(true);
+              this.medicalDissease.setVisible(true);
         });
 
     }
@@ -194,6 +207,11 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicImage(person.person, this.personImage);
         if (this.medicalBox !== undefined) {
             this.medicalBox.setVisible(false);
+            this.add.existing(this.medicalTitle).setVisible(false);
+            this.setDinamicText(person.medical.temperature, this.medicalTemperature, 'Temperature:');
+            this.medicalTemperature.setVisible(false);
+            // this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
+            // this.medicalDissease.setVisible(false);
         }
         
         console.log(person)
