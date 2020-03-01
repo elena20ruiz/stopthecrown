@@ -29,10 +29,8 @@ export default class Airport extends Phaser.Scene {
         person =  personInformation.nextPerson({},1);
         
         console.log(person);
-        // console.log(personInformation.nextPerson())
 
         // Set Background
-        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
         this.add.image(window.innerWidth/2, window.innerHeight/5, 'bg');
 
         // Set left column
@@ -75,9 +73,6 @@ export default class Airport extends Phaser.Scene {
 
         this.rulesTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/1.35)/1.22, 'RULES', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.add.existing(this.rulesTitle);
-
-        let rules = Object.keys(person.rules);
-
 
         // Load the person icon
         this.personImage = this.add.image(window.innerWidth/2.8, window.innerHeight/1.9, `person-${person.person}`).setScale(.7)
@@ -159,6 +154,18 @@ export default class Airport extends Phaser.Scene {
         this.add.existing(this.medicalButton);
 
         this.medicalBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/7.2, window.innerHeight/2.4, window.innerWidth/5, window.innerHeight/3, 0xFFFFFF);
+        this.add.existing(this.medicalBox).setVisible(false);
+
+        this.medicalTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/7.2)/2.9, (window.innerHeight/2.4)/1.5, 'MEDICAL INFORMATION', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+        this.add.existing(this.medicalTitle).setVisible(false);
+
+        this.medicalTemperature = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.5) + 50, 'Temperature:', { fill: '#000000', fontSize: '20px'});
+        this.setDinamicText(person.medical.temperature, this.medicalTemperature, 'Temperature:');
+        this.medicalTemperature.setVisible(false);
+
+        this.medicalDissease = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.5) + 80, 'Disease:', { fill: '#000000', fontSize: '20px'});
+        this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
+        this.medicalDissease.setVisible(false);
 
         this.medicalButton
           .setInteractive({ useHandCursor: true })
@@ -166,20 +173,15 @@ export default class Airport extends Phaser.Scene {
           .on('pointerout', () => this.enterButtonRestState(this.medicalButton, '#000') )
           .on('pointerdown', () => this.enterButtonActiveState(this.medicalButton) )
           .on('pointerup', () => {
-              this.add.existing(this.medicalBox);
+              this.add.existing(this.medicalBox).setVisible(true);
+              this.add.existing(this.medicalTitle).setVisible(true);
+              this.medicalTemperature.setVisible(true);
+              this.medicalDissease.setVisible(true);
         });
 
     }
 
-    update() {
-
-        // Check click
-
-        // Check if fail or not -> 
-        // If fails -> go to the other scene
-
-        // If pass -> next person
-    }
+    update() {   }
 
     updateInformation(person){
         this.setDinamicText(person.passport.id, this.IDPassport, 'ID:');
@@ -191,7 +193,12 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
         this.setDinamicImage(person.person, this.personImage);
         if (this.medicalBox !== undefined) {
-            this.medicalBox.destroy();
+            this.medicalBox.setVisible(false);
+            this.add.existing(this.medicalTitle).setVisible(false);
+            this.setDinamicText(person.medical.temperature, this.medicalTemperature, 'Temperature:');
+            this.medicalTemperature.setVisible(false);
+            this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
+            this.medicalDissease.setVisible(false);
         }
         
         console.log(person)
