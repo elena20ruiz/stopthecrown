@@ -18,6 +18,7 @@ export default class Airport extends Phaser.Scene {
         this.load.image('green-button', '/assets/green-button.png');
         this.load.image('red-button', '/assets/red-button.png');
         this.load.image('info', '/assets/info-back.png');
+        this.load.image('score', '/assets/score.png');
     }
 
     create() { 
@@ -91,9 +92,9 @@ export default class Airport extends Phaser.Scene {
         this.pass_text = this.add.text(window.innerWidth/2.5, window.innerHeight/1.18, 'bye', { fill: '#000000', fontSize: '20px'})
     
         // Buttons
-        this.add.image(window.innerWidth/3.9 + 90, window.innerHeight/1.3  + 20, 'red-button').setScale(.4);
+        this.add.image(window.innerWidth/3.9 + 90, window.innerHeight/1.3  + 20, 'red-button').setScale(.35);
         this.quarantine = new Phaser.GameObjects.Text(this, window.innerWidth/3.9, window.innerHeight/1.3, 'Quarantine', { fill: '#000000',fontSize: '30px', fontStyle: 'bold'});
-        this.add.image(window.innerWidth/2.5 + 50, window.innerHeight/1.3 + 20, 'green-button').setScale(.4);
+        this.add.image(window.innerWidth/2.5 + 50, window.innerHeight/1.3 + 20, 'green-button').setScale(.35);
         this.pass = new Phaser.GameObjects.Text(this, window.innerWidth/2.5, window.innerHeight/1.3, 'Pass', { fill: '#000000',  fontSize: '30px', fontStyle: 'bold'});
 
         this.add.existing(this.pass);
@@ -138,9 +139,8 @@ export default class Airport extends Phaser.Scene {
             } else {
                 score += 10;
             }
-            this.setDinamicText(score, this.scoreText, 'Score');
+            this.setDinamicText(score, this.scoreText, '');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
-            console.log
             this.updateInformation(person);
 
         });
@@ -150,10 +150,9 @@ export default class Airport extends Phaser.Scene {
 
 
         // Set score
-        this.scoreBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/9,  window.innerHeight/9, window.innerWidth/7, window.innerHeight/7, 0xA1A1A1, 0.8);
-        this.add.existing(this.scoreBox);
-        this.scoreText = this.add.text((window.innerWidth/9)/1.9, (window.innerHeight/9)/1.3, 'SCORE', { fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
-        this.setDinamicText(score, this.scoreText, 'SCORE');
+        this.add.image((window.innerWidth/9)/1.05, (window.innerHeight/9)/0.6, 'score').setScale(.3)
+        this.scoreText = this.add.text((window.innerWidth/9)/1.35, (window.innerHeight/9)/1, 'SCORE', { boundsAlignH: "center", boundsAlignV: "middle" ,fill: '#000000', fontSize: '35px', fontStyle: 'bold'});
+        this.setDinamicText(score, this.scoreText, '');
 
         // Button for medical thing
         this.medicalButton = new Phaser.GameObjects.Text(this, window.innerWidth/25,  window.innerHeight/5, 'Medical Information', { fill: '#000000', backgroundColor: '#A1A1A1', fontSize: '25px', fontStyle: 'bold'});
