@@ -110,26 +110,25 @@ class PersonInformation {
                 }
             }
         }
-
+        console.log(requirements[key]);
         var rule = requirements[key];
         var description = rule["description"];
 
         var variable = key.match(/{(.*)}/);
-        if(variable.length > 0){
+        if(variable){
             variable = variable.pop();
             var rVariable = this.getVariable(variable);
             
             key = key.replace("{" + variable + "}", rVariable);
             description = description.replace("{" + variable + "}", rVariable);
         }
-        console.log("joliwis")
         var newRule = {
             "description": description,
             "variable": rule["variable"],
             "area": rule["area"],
             "field": rule["field"]
         }
-        if (variable.length > 0 ){
+        if (variable ){
             newRule["value"] = rVariable;
         }
         console.log("Abans")
