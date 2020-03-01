@@ -35,8 +35,9 @@ class VirusScanner {
         const oValue = passport[field];
 
         // Specials:
-        // 1. Age  
-        if(field === "age" && value >= oValue) return true; 
+        // 1. Year  
+    
+        if(field === "year" && value <= oValue) return true; 
         // 2. Id
         if(field === "id" && value % 2) return true;
 

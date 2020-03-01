@@ -53,24 +53,12 @@ class PersonInformation {
             "citizenship": citizenship,
             "birthPlace": birthPlace,
             "birthday": birthday.toLocaleDateString("es-US"),
-            "age": 2020 - birthday.getFullYear()
+            "year": 2020 - birthday.getFullYear()
         }
     }
 
     getExtraInfo(){
-        
-
-        const r = Math.floor(Math.random() * 6);
-        if (r == 5){
-            const dis = this.getVariable("disease");
-            return {
-                "disease": dis
-            }
-        }
-
-        return {
-            "disease": "none"
-        }
+        return {};
     }
 
     getBoardingPass(){
@@ -83,9 +71,16 @@ class PersonInformation {
 
     getMedicalInfo(){
         const temp = Math.floor(Math.random() * (45-34)) + 34;
-        console.log(temp);
+        
+        const r = Math.floor(Math.random() * 6);
+        var disease = "none";
+        if (r == 5){
+            disease =  this.getVariable("disease");
+        }
+
         return {
-            "temperature": temp
+            "temperature": temp,  
+            "disease": disease
         }
     }
 
@@ -115,26 +110,25 @@ class PersonInformation {
                 }
             }
         }
-
+        console.log(requirements[key]);
         var rule = requirements[key];
         var description = rule["description"];
 
         var variable = key.match(/{(.*)}/);
-        if(variable.length > 0){
+        if(variable){
             variable = variable.pop();
             var rVariable = this.getVariable(variable);
             
             key = key.replace("{" + variable + "}", rVariable);
             description = description.replace("{" + variable + "}", rVariable);
         }
-        console.log("joliwis")
         var newRule = {
             "description": description,
             "variable": rule["variable"],
             "area": rule["area"],
             "field": rule["field"]
         }
-        if (variable.length > 0 ){
+        if (variable ){
             newRule["value"] = rVariable;
         }
         console.log("Abans")
