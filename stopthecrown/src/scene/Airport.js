@@ -115,7 +115,7 @@ export default class Airport extends Phaser.Scene {
                 score -= 10;
                 if (score < 0){
                     background.stop();
-                    if (intro.isPlaying()) intro.stop();
+                    if (intro.isPlaying) intro.stop();
                     this.scene.start('final');
                 }
             } 
@@ -139,6 +139,8 @@ export default class Airport extends Phaser.Scene {
             this.enterButtonHoverState(this.pass);
 
             if (person.coronavirus === true) {
+                background.stop();
+                if (intro.isPlaying) intro.stop();
                 this.scene.start('final');
             } else {
                 score += 10;
