@@ -22,7 +22,8 @@ class PersonInformation {
             'rules': rules,
             'medical': medicalInfo,
         }
-        data["coronavirus"] = VirusScanner.check();
+        let corona = VirusScanner.check(rules, data);
+        data["coronavirus"] = corona;
         return data;
     }
 
@@ -52,24 +53,12 @@ class PersonInformation {
             "citizenship": citizenship,
             "birthPlace": birthPlace,
             "birthday": birthday.toLocaleDateString("es-US"),
-            "age": 2020 - birthday.getFullYear()
+            "year": 2020 - birthday.getFullYear()
         }
     }
 
     getExtraInfo(){
-        
-
-        const r = Math.floor(Math.random() * 6);
-        if (r == 5){
-            const dis = this.getVariable("disease");
-            return {
-                "disease": dis
-            }
-        }
-
-        return {
-            "disease": "none"
-        }
+        return {};
     }
 
     getBoardingPass(){
@@ -82,8 +71,16 @@ class PersonInformation {
 
     getMedicalInfo(){
         const temp = Math.floor(Math.random() * (45-34)) + 34;
+        
+        const r = Math.floor(Math.random() * 6);
+        var disease = "none";
+        if (r == 5){
+            disease =  this.getVariable("disease");
+        }
+
         return {
-            "temperature": temp
+            "temperature": temp,  
+            "disease": disease
         }
     }
 
@@ -125,7 +122,7 @@ class PersonInformation {
             key = key.replace("{" + variable + "}", rVariable);
             description = description.replace("{" + variable + "}", rVariable);
         }
-
+        console.log("joliwis")
         var newRule = {
             "description": description,
             "variable": rule["variable"],

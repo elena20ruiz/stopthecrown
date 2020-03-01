@@ -28,7 +28,7 @@
             "description": "",
             "variable": "year",
             "area": "passport",
-            "field": "age"
+            "field": "year"
         },
         "The person has an odd ID": {
             "description": "",
