@@ -129,7 +129,11 @@ export default class Airport extends Phaser.Scene {
             }
             this.setDinamicText(score, this.scoreText, '');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
-            console.log(person);
+            if(score % 100 === 0) {
+                var rulesAux = Object.keys(person.rules);
+                var newRule = rulesAux[rulesAux.length - 1];
+                this.setNewRule( person.rules[newRule]["description"]);
+            }
             this.updateInformation(person);
 
         });
@@ -157,6 +161,12 @@ export default class Airport extends Phaser.Scene {
             }
             this.setDinamicText(score, this.scoreText, '');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
+            if(score % 100 === 0) {
+                var rulesAux = Object.keys(person.rules);
+                var newRule = rulesAux[rulesAux.length - 1];
+                console.log( person.rules[newRule]);
+                this.setNewRule( person.rules[newRule]["description"]);
+            }
             this.updateInformation(person);
 
         });
@@ -302,6 +312,23 @@ export default class Airport extends Phaser.Scene {
 
     enterButtonActiveState(button) {
         button.setStyle({ fill: '#0ff' });
+    }
+
+    setNewRule(description) {
+        this.newRule = new Phaser.GameObjects.Rectangle(this,  window.innerWidth/2.8, window.innerHeight/1.9,  window.innerWidth/3, window.innerHeight/3, 0xFFFFFF)
+        this.add.existing(this.newRule);
+
+        this.newRuleTitle = new Phaser.GameObjects.Text(this,  window.innerWidth/4, window.innerHeight/2.5,   'New rule!', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+        this.add.existing(this.newRuleTitle);
+
+        // Put description
+        this.newRuleDescription = this.add.text(this,  window.innerWidth/2.8, window.innerHeight/1.9,  'description', { fill: '#000000', fontSize: '20px', fontStyle: 'bold'});
+        this.setDinamicText(description, this.newRuleDescription, '');
+
+
+        // Button
+        this.newRuleX = new Phaser.GameObjects.Text(this, window.innerWidth/2, window.innerHeight/2.5, 'X', { fill: '#000000',  fontSize: '30px', fontStyle: 'bold'});
+        this.add.existing(this.newRuleX);
     }
 
 }
