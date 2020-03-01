@@ -33,15 +33,15 @@
         }
     },
     "3": {
-        "The person is older that {year} years old": {
+        "The person is older that {age} years old": {
             "description": "",
-            "variable": "year",
+            "variable": "age",
             "area": "passport",
             "field": "age"
         }
     },
     "4": {
-        "The person has an odd ID": {
+        "The person has an odd ID {}": {
             "description": "",
             "variable": "id",
             "area": "passport",
