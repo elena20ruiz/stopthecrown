@@ -20,16 +20,23 @@ export default class Airport extends Phaser.Scene {
         this.load.image('info', '/assets/info-back.png');
         this.load.image('score', '/assets/score.png');
         this.load.image('medical', '/assets/medical.png');
+        this.load.audio('song', 'assets/music/basic-soundtrack.mp3');
+        this.load.audio('intro', 'assets/music/landing.mp3');
+        this.load.audio('lose', 'assets/music/lose.mp3');
     }
 
     create() { 
+        // Music sound starts
+        let intro = this.sound.add('intro', { mute: false, volume: 2, rate: 1, detune: 0, seek: 0, loop: false, delay: 0 });
+        intro.play();
+        let background = this.sound.add('song', { mute: false, volume: 1.5, rate: 1, detune: 0, seek: 0, loop: true, delay: 0 });
+        background.play();
+
         // Add person and documents info
         var person = undefined;
         var score = 0;
         person =  personInformation.nextPerson({},1);
         
-        console.log(person);
-
         // Set Background
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg');
 
@@ -38,10 +45,10 @@ export default class Airport extends Phaser.Scene {
         this.add.existing(this.leftcolumn);
 
         // Set passport card with the information
-        this.passport = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/4.4, window.innerWidth/3, window.innerHeight/3, 0xFFFFFF);
+        this.passport = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/4.8, window.innerWidth/3, window.innerHeight/3, 0xFFFFFF);
         this.add.existing(this.passport);
 
-        this.passportTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/3.6)/4, 'PASSANGER PASSPORT', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+        this.passportTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/3.6)/4, 'PASSENGER PASSPORT', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.add.existing(this.passportTitle);
 
         this.IDPassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 50, 'ID:', { fill: '#000000', fontSize: '20px'});
@@ -58,7 +65,7 @@ export default class Airport extends Phaser.Scene {
 
         // Set the boarding card with the information
 
-        this.boardingPass = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/2.1, window.innerWidth/3, window.innerHeight/7.5, 0xFFFFFF);
+        this.boardingPass = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/2.15, window.innerWidth/3, window.innerHeight/7.5, 0xFFFFFF);
         this.add.existing(this.boardingPass);
 
         this.boardingTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/2.05)/1.15, 'BOARDING PASS', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
@@ -107,15 +114,26 @@ export default class Airport extends Phaser.Scene {
             if (person.coronavirus == false) {
                 score -= 10;
                 if (score < 0){
+                    background.stop();
+                    if (intro.isPlaying) intro.stop();
                     this.scene.start('final');
                 }
             } 
             else {
                 score += 10;
+                if (score === 500) {
+                    background.stop();
+                    if (intro.isPlaying) intro.stop();
+                    this.scene.start('win'); 
+                }
             }
-            this.setDinamicText(score, this.scoreText, 'Score');
+            this.setDinamicText(score, this.scoreText, '');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
-            console.log(person);
+            // if(score % 100 === 0) {
+            //     var rulesAux = Object.keys(person.rules);
+            //     var newRule = rulesAux[rulesAux.length - 1];
+            //     this.setNewRule( person.rules[newRule]["description"]);
+            // }
             this.updateInformation(person);
 
         });
@@ -130,12 +148,25 @@ export default class Airport extends Phaser.Scene {
             this.enterButtonHoverState(this.pass);
 
             if (person.coronavirus === true) {
+                background.stop();
+                if (intro.isPlaying) intro.stop();
                 this.scene.start('final');
             } else {
                 score += 10;
+                if (score === 500) {
+                    background.stop();
+                    if (intro.isPlaying) intro.stop();
+                    this.scene.start('win'); 
+                }
             }
             this.setDinamicText(score, this.scoreText, '');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
+            // if(score % 100 === 0) {
+            //     var rulesAux = Object.keys(person.rules);
+            //     var newRule = rulesAux[rulesAux.length - 1];
+            //     console.log( person.rules[newRule]);
+            //     this.setNewRule( person.rules[newRule]["description"]);
+            // }
             this.updateInformation(person);
 
         });
@@ -146,7 +177,7 @@ export default class Airport extends Phaser.Scene {
 
         // Set score
         this.add.image((window.innerWidth/9)/1.05, (window.innerHeight/9)/0.85, 'score').setScale(.3)
-        this.scoreText = this.add.text((window.innerWidth/9)/1.1, (window.innerHeight/9)/1, 'SCORE', { boundsAlignH: "center", boundsAlignV: "middle" ,fill: '#000000', fontSize: '35px', fontStyle: 'bold'});
+        this.scoreText = this.add.text((window.innerWidth/9)/1.1, (window.innerHeight/9)/1, '', { boundsAlignH: "center", boundsAlignV: "middle" ,fill: '#000000', fontSize: '35px', fontStyle: 'bold'});
         this.setDinamicText(score, this.scoreText, '');
 
         // Button for medical thing
@@ -282,5 +313,22 @@ export default class Airport extends Phaser.Scene {
     enterButtonActiveState(button) {
         button.setStyle({ fill: '#0ff' });
     }
+
+    // setNewRule(description) {
+    //     this.newRule = new Phaser.GameObjects.Rectangle(this,  window.innerWidth/2.8, window.innerHeight/1.9,  window.innerWidth/3, window.innerHeight/3, 0xFFFFFF)
+    //     this.add.existing(this.newRule);
+
+    //     this.newRuleTitle = new Phaser.GameObjects.Text(this,  window.innerWidth/4, window.innerHeight/2.5,   'New rule!', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+    //     this.add.existing(this.newRuleTitle);
+
+    //     // Put description
+    //     this.newRuleDescription = this.add.text(this,  window.innerWidth/2.8, window.innerHeight/1.9,  'description', { fill: '#000000', fontSize: '20px', fontStyle: 'bold'});
+    //     this.setDinamicText(description, this.newRuleDescription, '');
+
+
+    //     // Button
+    //     this.newRuleX = new Phaser.GameObjects.Text(this, window.innerWidth/2, window.innerHeight/2.5, 'X', { fill: '#000000',  fontSize: '30px', fontStyle: 'bold'});
+    //     this.add.existing(this.newRuleX);
+    // }
 
 }
