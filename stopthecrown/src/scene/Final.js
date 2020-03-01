@@ -10,9 +10,14 @@ export default class Final extends Phaser.Scene {
 
     preload() {
         this.load.image('corona', 'assets/coronavirus.jpg');
+        //this.load.audio('lose', 'assets/music/lose.mp3');
     }
 
     create() {
+        
+        // let lose = this.sound.add('lose-sound', { mute: false, volume: 1.5, rate: 1, detune: 0, seek: 0, loop: false, delay: 0 });
+        // lose.play();
+
         // Set Background
         this.add.image(window.innerWidth/2, window.innerHeight/5, 'corona');
 

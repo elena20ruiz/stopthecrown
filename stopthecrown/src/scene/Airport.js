@@ -20,16 +20,23 @@ export default class Airport extends Phaser.Scene {
         this.load.image('info', '/assets/info-back.png');
         this.load.image('score', '/assets/score.png');
         this.load.image('medical', '/assets/medical.png');
+        this.load.audio('song', 'assets/music/basic-soundtrack.mp3');
+        this.load.audio('intro', 'assets/music/landing.mp3');
+        this.load.audio('lose', 'assets/music/lose.mp3');
     }
 
     create() { 
+        // Music sound starts
+        let intro = this.sound.add('intro', { mute: false, volume: 2, rate: 1, detune: 0, seek: 0, loop: false, delay: 0 });
+        intro.play();
+        let background = this.sound.add('song', { mute: false, volume: 1.5, rate: 1, detune: 0, seek: 0, loop: true, delay: 0 });
+        background.play();
+
         // Add person and documents info
         var person = undefined;
         var score = 0;
         person =  personInformation.nextPerson({},1);
         
-        console.log(person);
-
         // Set Background
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg');
 
@@ -107,6 +114,8 @@ export default class Airport extends Phaser.Scene {
             if (person.coronavirus == false) {
                 score -= 10;
                 if (score < 0){
+                    background.stop();
+                    if (intro.isPlaying()) intro.stop();
                     this.scene.start('final');
                 }
             } 
