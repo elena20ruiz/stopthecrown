@@ -10,7 +10,7 @@ export default class Win extends Phaser.Scene {
     preload() {
         this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 
-        this.load.audio('lose', 'assets/music/lose.mp3');
+        this.load.audio('win', 'assets/music/winning.wav');
         this.load.image('crown', 'assets/crown.png');
         this.load.image('hand', 'assets/hand.png');
         this.load.image('back', 'assets/back-win.png');
@@ -19,8 +19,8 @@ export default class Win extends Phaser.Scene {
 
     create() {
         
-        let lose = this.sound.add('lose', { mute: false, volume: 1.5, rate: 1, detune: 0, seek: 0, loop: false, delay: 0 });
-        lose.play();
+        let win = this.sound.add('win', { mute: false, volume: 1.5, rate: 1, detune: 0, seek: 0, loop: false, delay: 0 });
+        win.play();
 
         // Set Background
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'back');

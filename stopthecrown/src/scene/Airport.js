@@ -45,10 +45,10 @@ export default class Airport extends Phaser.Scene {
         this.add.existing(this.leftcolumn);
 
         // Set passport card with the information
-        this.passport = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/4.4, window.innerWidth/3, window.innerHeight/3, 0xFFFFFF);
+        this.passport = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/4.8, window.innerWidth/3, window.innerHeight/3, 0xFFFFFF);
         this.add.existing(this.passport);
 
-        this.passportTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/3.6)/4, 'PASSANGER PASSPORT', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+        this.passportTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/3.6)/4, 'PASSENGER PASSPORT', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.add.existing(this.passportTitle);
 
         this.IDPassport = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/3.6)/4) + 50, 'ID:', { fill: '#000000', fontSize: '20px'});
@@ -65,7 +65,7 @@ export default class Airport extends Phaser.Scene {
 
         // Set the boarding card with the information
 
-        this.boardingPass = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/2.1, window.innerWidth/3, window.innerHeight/7.5, 0xFFFFFF);
+        this.boardingPass = new Phaser.GameObjects.Rectangle(this, window.innerWidth/1.25, window.innerHeight/2.15, window.innerWidth/3, window.innerHeight/7.5, 0xFFFFFF);
         this.add.existing(this.boardingPass);
 
         this.boardingTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/1.25)/1.2, (window.innerHeight/2.05)/1.15, 'BOARDING PASS', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
