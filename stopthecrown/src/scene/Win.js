@@ -25,6 +25,17 @@ export default class Win extends Phaser.Scene {
         // Set Background
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'back');
         
+        this.restartButton = new Phaser.GameObjects.Text(this, window.innerWidth/12,  window.innerHeight/4, 'RESTART', { fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
+        this.add.existing(this.restartButton);
+
+        this.restartButton
+          .setInteractive({ useHandCursor: true })
+          .on('pointerover', () => this.enterButtonHoverState(this.restartButton) )
+          .on('pointerout', () => this.enterButtonRestState(this.restartButton, '#000') )
+          .on('pointerdown', () => this.enterButtonActiveState(this.restartButton) )
+          .on('pointerup', () => {
+            location.reload();
+        });
 
         this.finalMessageLose = new Phaser.GameObjects.Text(this, window.innerWidth/5, window.innerHeight/8, 'CONGRATS! YOU STOP THE CROWN', {font:"60px Open Sans", fontStyle: "bold", fill: '#000000'});
         this.add.existing(this.finalMessageLose);
@@ -35,5 +46,17 @@ export default class Win extends Phaser.Scene {
     }
 
     update () {
+    }
+
+    enterButtonHoverState(button) {
+        button.setStyle({ fill: '#fff'});
+    }
+
+    enterButtonRestState(button, color) {
+        button.setStyle({ fill: color});
+    }
+
+    enterButtonActiveState(button) {
+        button.setStyle({ fill: '#0ff' });
     }
 }

@@ -31,14 +31,14 @@ export default class Final extends Phaser.Scene {
         this.restartButton = new Phaser.GameObjects.Text(this, window.innerWidth/12,  window.innerHeight/4, 'RESTART', { fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
         this.add.existing(this.restartButton);
 
-        /*this.restartButton
+        this.restartButton
           .setInteractive({ useHandCursor: true })
           .on('pointerover', () => this.enterButtonHoverState(this.restartButton) )
           .on('pointerout', () => this.enterButtonRestState(this.restartButton, '#000') )
           .on('pointerdown', () => this.enterButtonActiveState(this.restartButton) )
           .on('pointerup', () => {
-            this.scene.start('airport');
-        });*/
+            location.reload();
+        });
 
         this.add.image(window.innerWidth/1.8, window.innerHeight/1.8, 'banner');
         this.add.image(window.innerWidth/3, window.innerHeight/1.8, 'virus').setScale(.7); 
