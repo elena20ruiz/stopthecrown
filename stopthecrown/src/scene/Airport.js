@@ -159,6 +159,7 @@ export default class Airport extends Phaser.Scene {
         this.add.existing(this.medicalButton);
 
         this.medicalBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/7.2, window.innerHeight/2.4, window.innerWidth/5, window.innerHeight/3, 0xFFFFFF);
+        this.add.existing(this.medicalBox).setVisible(false);
 
         this.medicalButton
           .setInteractive({ useHandCursor: true })
@@ -166,7 +167,8 @@ export default class Airport extends Phaser.Scene {
           .on('pointerout', () => this.enterButtonRestState(this.medicalButton, '#000') )
           .on('pointerdown', () => this.enterButtonActiveState(this.medicalButton) )
           .on('pointerup', () => {
-              this.add.existing(this.medicalBox);
+              console.log("h")
+              this.add.existing(this.medicalBox).setVisible(true);
         });
 
     }
@@ -191,7 +193,7 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
         this.setDinamicImage(person.person, this.personImage);
         if (this.medicalBox !== undefined) {
-            this.medicalBox.destroy();
+            this.medicalBox.setVisible(false);
         }
         
         console.log(person)
