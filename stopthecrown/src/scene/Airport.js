@@ -8,7 +8,7 @@ export default class Airport extends Phaser.Scene {
     constructor() { super('airport') }
 
     preload() {
-        this.load.image('bg', 'assets/background.jpg');
+        this.load.image('bg', 'assets/background_1.png');
         this.load.image('person-1', 'src/data/people/man-1.png');
         this.load.image('person-2', 'src/data/people/man-2.png');
         this.load.image('person-3', 'src/data/people/man-3.png');
@@ -19,10 +19,10 @@ export default class Airport extends Phaser.Scene {
         this.load.image('red-button', '/assets/red-button.png');
         this.load.image('info', '/assets/info-back.png');
         this.load.image('score', '/assets/score.png');
+        this.load.image('medical', '/assets/medical.png');
     }
 
     create() { 
-
         // Add person and documents info
         var person = undefined;
         var score = 0;
@@ -31,7 +31,7 @@ export default class Airport extends Phaser.Scene {
         console.log(person);
 
         // Set Background
-        this.add.image(window.innerWidth/2, window.innerHeight/5, 'bg');
+        this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg');
 
         // Set left column
         this.leftcolumn = new Phaser.GameObjects.Rectangle(this, window.innerWidth+150,  window.innerHeight/2, window.innerWidth, window.innerHeight, 0xA1A1A1, 0.8);
@@ -150,20 +150,21 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(score, this.scoreText, '');
 
         // Button for medical thing
-        this.medicalButton = new Phaser.GameObjects.Text(this, window.innerWidth/25,  window.innerHeight/5, 'Medical Information', { fill: '#000000', backgroundColor: '#A1A1A1', fontSize: '25px', fontStyle: 'bold'});
+        this.add.image((window.innerWidth/9)/1.05, window.innerHeight/4.3, 'medical').setScale(.3)
+        this.medicalButton = new Phaser.GameObjects.Text(this, window.innerWidth/12,  window.innerHeight/5, 'Medical\nInformation', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.add.existing(this.medicalButton);
 
-        this.medicalBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/7.2, window.innerHeight/2.4, window.innerWidth/5, window.innerHeight/3, 0xFFFFFF);
+        this.medicalBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/7.2, window.innerHeight/2.1, window.innerWidth/5, window.innerHeight/3, 0xFFFFFF);
         this.add.existing(this.medicalBox).setVisible(false);
 
-        this.medicalTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/7.2)/2.9, (window.innerHeight/2.4)/1.5, 'MEDICAL INFORMATION', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
+        this.medicalTitle = new Phaser.GameObjects.Text(this, (window.innerWidth/7.2)/2.9, (window.innerHeight/2.4)/1.2, 'MEDICAL INFORMATION', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
         this.add.existing(this.medicalTitle).setVisible(false);
 
-        this.medicalTemperature = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.5) + 50, 'Temperature:', { fill: '#000000', fontSize: '20px'});
+        this.medicalTemperature = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.2) + 50, 'Temperature:', { fill: '#000000', fontSize: '20px'});
         this.setDinamicText(person.medical.temperature, this.medicalTemperature, 'Temperature:');
         this.medicalTemperature.setVisible(false);
 
-        this.medicalDissease = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.5) + 80, 'Disease:', { fill: '#000000', fontSize: '20px'});
+        this.medicalDissease = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.2) + 80, 'Disease:', { fill: '#000000', fontSize: '20px'});
         this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
         this.medicalDissease.setVisible(false);
 
