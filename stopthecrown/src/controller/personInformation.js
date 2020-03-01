@@ -24,7 +24,7 @@ class PersonInformation {
             'medical': medicalInfo,
         }
         let corona = VirusScanner.check(rules, data);
-        data["coronavirus"] = false;
+        data["coronavirus"] = corona;
         return data;
     }
 
@@ -101,7 +101,7 @@ class PersonInformation {
         var rule = requirements[key];
         var description = rule["description"];
         console.log("dasda")
-
+        
         var variable = key.match(/{(.*)}/).pop();
         console.log(variable);
         if(variable.length > 0){
