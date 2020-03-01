@@ -29,7 +29,7 @@ export default class Final extends Phaser.Scene {
         this.finalMessageLose = new Phaser.GameObjects.Text(this, window.innerWidth/5, window.innerHeight/8, 'ALL YOUR CITY HAS BEEN INFECTED 😷', {font:"60px Open Sans", fontStyle: "bold", fill: '#000000'});
         this.add.existing(this.finalMessageLose);
 
-        this.add.image(window.innerWidth/1.4, window.innerHeight/1.1, 'restart').setScale(0.6);
+        this.add.image(window.innerWidth/1.4, window.innerHeight/1.1, 'restart').setScale(0.8);
         this.restartButton = new Phaser.GameObjects.Text(this, window.innerWidth/1.4 - 25, window.innerHeight/1.1 - 30, 'Restart', {font:"40px Open Sans",  fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
         this.add.existing(this.restartButton);
 
