@@ -14,7 +14,6 @@ class PersonInformation {
         const boardingPass = this.getBoardingPass()
         const medicalInfo = this.getMedicalInfo();
         const rules = this.getRules(currentRules, level);
-        console.log(passport);  
         var data = {
             'person': person,
             'passport': passport,
@@ -36,9 +35,7 @@ class PersonInformation {
 
     getPassport(){
         const name = this.getVariable("name");
-        console.log(name);
         const lastName = this.getVariable("lastName");
-        console.log(lastName);
         const id = Math.floor(Math.random() * 999999) + 60000;
         const citizenship = this.getVariable("country");
         var birthPlace = citizenship;
@@ -60,7 +57,19 @@ class PersonInformation {
     }
 
     getExtraInfo(){
-        return "hola"
+        
+
+        const r = Math.floor(Math.random() * 6);
+        if (r == 5){
+            const dis = this.getVariable("disease");
+            return {
+                "disease": dis
+            }
+        }
+
+        return {
+            "disease": "none"
+        }
     }
 
     getBoardingPass(){
@@ -80,26 +89,37 @@ class PersonInformation {
 
     getRules(currentRules, level){
         const nRules = Object.keys(currentRules).length;
-        console.log('Levels' + nRules + ' ' + level);
         if( nRules == level) return currentRules;
 
 
         // New rule
-        const nextLevel = nRules;
-        const requirements = jsonRules[nextLevel];
-        console.log(requirements);
-        // Get random from the next level
+        const requirements = jsonRules["restrictions"];
         const ruleKeys = Object.keys(requirements);
-        const max = ruleKeys.length - 1;
-        const random = Math.floor(Math.random() * Math.floor(max));
+        const max = ruleKeys.length - 1; 
 
-        // Get random position
-        var key = ruleKeys[random];
+        var isNew = false;
+        while(!isNew){
+            // Get random from the next level
+            const random = Math.floor(Math.random() * Math.floor(max));
+            
+            var key = ruleKeys[random];
+
+            var area = requirements[key]["area"];
+            var field = requirements[key]["field"];
+            isNew = true;
+            for(var i in currentRules){
+                if(currentRules[i]["area"] == area && currentRules[i]["field"] == field) {
+                    isNew = false;
+                }
+            }
+        }
+
         var rule = requirements[key];
         var description = rule["description"];
 
-        var variable = key.match(/{(.*)}/).pop();
+        var variable = key.match(/{(.*)}/);
         if(variable.length > 0){
+            variable = variable.pop();
             var rVariable = this.getVariable(variable);
             
             key = key.replace("{" + variable + "}", rVariable);
@@ -125,7 +145,6 @@ class PersonInformation {
 
     getVariable(variable){
         var content = variables[variable];
-
         var max = content.length - 1;
         const random = Math.floor(Math.random() * Math.floor(max));
         return content[random];

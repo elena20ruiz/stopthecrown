@@ -24,7 +24,7 @@ const variables = {
     'name': nameJson["names"],
     'lastName': lastNameJson["last-name"],
     'temperature': intArray(39, 46),
-    'age': intArray(50, 100)
+    'year': intArray(50, 100),
 }
 
 export default variables;
