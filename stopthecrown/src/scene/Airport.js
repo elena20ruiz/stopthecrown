@@ -15,6 +15,8 @@ export default class Airport extends Phaser.Scene {
         this.load.image('person-4', 'src/data/people/man-4.png');
         this.load.image('person-5', 'src/data/people/man-5.png');
         this.load.image('person-6', 'src/data/people/man-6.png');
+        this.load.image('button', '/assets/button.png');
+        this.load.image('info', '/assets/info.png');
     }
 
     create() { 
@@ -82,11 +84,16 @@ export default class Airport extends Phaser.Scene {
         let people_passed = 0;
         let people_quarantained = 0;
 
-        this.quarantine_text = this.add.text(window.innerWidth/3.9, window.innerHeight/1.2, 'hi', { fill: '#000000', fontSize: '20px', backgroundColor: '#FFFFFF' });
-        this.pass_text = this.add.text(window.innerWidth/2.5, window.innerHeight/1.2, 'bye', { fill: '#000000', fontSize: '20px', backgroundColor: '#FFFFFF' })
+
+        this.add.image(window.innerWidth/3, window.innerHeight/1.16, 'info').setScale(.4);        
+        this.quarantine_text = this.add.text(window.innerWidth/3.9, window.innerHeight/1.18, 'hi', { fill: '#000000', fontSize: '20px'});
+        this.pass_text = this.add.text(window.innerWidth/2.5, window.innerHeight/1.18, 'bye', { fill: '#000000', fontSize: '20px'})
     
-        this.quarantine = new Phaser.GameObjects.Text(this, window.innerWidth/3.9, window.innerHeight/1.3, 'Quarantine', { fill: '#000000', backgroundColor: '#f00', fontSize: '30px', fontStyle: 'bold'});
-        this.pass = new Phaser.GameObjects.Text(this, window.innerWidth/2.5, window.innerHeight/1.3, 'Pass', { fill: '#000000', backgroundColor: '#0f0', fontSize: '30px', fontStyle: 'bold'});
+        // Buttons
+        this.add.image(window.innerWidth/3.9 + 90, window.innerHeight/1.3  + 20, 'button').setScale(.4);
+        this.quarantine = new Phaser.GameObjects.Text(this, window.innerWidth/3.9, window.innerHeight/1.3, 'Quarantine', { fill: '#000000',fontSize: '30px', fontStyle: 'bold'});
+        this.add.image(window.innerWidth/2.5 + 50, window.innerHeight/1.3 + 20, 'button').setScale(.4);
+        this.pass = new Phaser.GameObjects.Text(this, window.innerWidth/2.5, window.innerHeight/1.3, 'Pass', { fill: '#000000',  fontSize: '30px', fontStyle: 'bold'});
 
         this.add.existing(this.pass);
         this.add.existing(this.quarantine);
@@ -144,8 +151,24 @@ export default class Airport extends Phaser.Scene {
         // Set score
         this.scoreBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/9,  window.innerHeight/9, window.innerWidth/7, window.innerHeight/7, 0xA1A1A1, 0.8);
         this.add.existing(this.scoreBox);
-        this.scoreText = this.add.text((window.innerWidth/9)/1.5, (window.innerHeight/9)/1.2, 'Score', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
-        this.setDinamicText(score, this.scoreText, 'Score');
+        this.scoreText = this.add.text((window.innerWidth/9)/1.9, (window.innerHeight/9)/1.3, 'SCORE', { fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
+        this.setDinamicText(score, this.scoreText, 'SCORE');
+
+        // Button for medical thing
+        this.medicalButton = new Phaser.GameObjects.Text(this, window.innerWidth/25,  window.innerHeight/5, 'Medical Information', { fill: '#000000', backgroundColor: '#A1A1A1', fontSize: '25px', fontStyle: 'bold'});
+        this.add.existing(this.medicalButton);
+
+        this.medicalBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/7.2, window.innerHeight/2.4, window.innerWidth/5, window.innerHeight/3, 0xFFFFFF);
+
+        this.medicalButton
+          .setInteractive({ useHandCursor: true })
+          .on('pointerover', () => this.enterButtonHoverState(this.medicalButton) )
+          .on('pointerout', () => this.enterButtonRestState(this.medicalButton, '#000') )
+          .on('pointerdown', () => this.enterButtonActiveState(this.medicalButton) )
+          .on('pointerup', () => {
+              this.add.existing(this.medicalBox);
+        });
+
     }
 
     update() {
@@ -167,7 +190,11 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(person.boardingPass.origin, this.boardingOrigin, "Origin:");
         this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
         this.setDinamicImage(person.person, this.personImage);
+        if (this.medicalBox !== undefined) {
+            this.medicalBox.destroy();
+        }
         
+        console.log(person)
         let rules = Object.keys(person.rules);
         console.log(rules)
 
