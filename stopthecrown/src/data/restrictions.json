@@ -6,11 +6,11 @@
             "area": "boardingPass",
             "field": "city"
         },
-        "The person comes from {country}": {
+        "The person is from {country}": {
             "description": "",
             "variable": "country",
             "area": "passport",
-            "field": "citership"
+            "field": "citizenship"
         },
         "The temperature is {temperature}": {
             "description": "",
