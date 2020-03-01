@@ -15,8 +15,9 @@ export default class Airport extends Phaser.Scene {
         this.load.image('person-4', 'src/data/people/man-4.png');
         this.load.image('person-5', 'src/data/people/man-5.png');
         this.load.image('person-6', 'src/data/people/man-6.png');
-        this.load.image('button', '/assets/button.png');
-        this.load.image('info', '/assets/info.png');
+        this.load.image('green-button', '/assets/green-button.png');
+        this.load.image('red-button', '/assets/red-button.png');
+        this.load.image('info', '/assets/info-back.png');
     }
 
     create() { 
@@ -73,21 +74,21 @@ export default class Airport extends Phaser.Scene {
         this.add.existing(this.rulesTitle);
 
         // Load the person icon
-        this.personImage = this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6);
+        this.personImage = this.add.image(window.innerWidth/2.8, window.innerHeight/1.9, `person-${person.person}`).setScale(.7);
         this.updateInformation(person);
 
         let people_passed = 0;
         let people_quarantained = 0;
 
 
-        this.add.image(window.innerWidth/3, window.innerHeight/1.16, 'info').setScale(.4);        
+        this.add.image(window.innerWidth/2.8, window.innerHeight/1.16, 'info').setScale(.4);        
         this.quarantine_text = this.add.text(window.innerWidth/3.9, window.innerHeight/1.18, 'hi', { fill: '#000000', fontSize: '20px'});
         this.pass_text = this.add.text(window.innerWidth/2.5, window.innerHeight/1.18, 'bye', { fill: '#000000', fontSize: '20px'})
     
         // Buttons
-        this.add.image(window.innerWidth/3.9 + 90, window.innerHeight/1.3  + 20, 'button').setScale(.4);
+        this.add.image(window.innerWidth/3.9 + 90, window.innerHeight/1.3  + 20, 'green-button').setScale(.4);
         this.quarantine = new Phaser.GameObjects.Text(this, window.innerWidth/3.9, window.innerHeight/1.3, 'Quarantine', { fill: '#000000',fontSize: '30px', fontStyle: 'bold'});
-        this.add.image(window.innerWidth/2.5 + 50, window.innerHeight/1.3 + 20, 'button').setScale(.4);
+        this.add.image(window.innerWidth/2.5 + 50, window.innerHeight/1.3 + 20, 'red-button').setScale(.4);
         this.pass = new Phaser.GameObjects.Text(this, window.innerWidth/2.5, window.innerHeight/1.3, 'Pass', { fill: '#000000',  fontSize: '30px', fontStyle: 'bold'});
 
         this.add.existing(this.pass);
@@ -282,7 +283,7 @@ export default class Airport extends Phaser.Scene {
     }
 
     enterButtonHoverState(button) {
-        button.setStyle({ fill: '#ff0'});
+        button.setStyle({ fill: '#fff'});
     }
 
     enterButtonRestState(button, color) {

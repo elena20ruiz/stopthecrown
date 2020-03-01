@@ -1,47 +1,36 @@
-
-
 {
-    "0":
-        {
-            "The person comes from {city}": {
-                "description": "The coronaviris now is extended throught {city}. Now you have to check the person procedency",
-                "variable": "city",
-                "area": "boardingPass",
-                "field": "origin"
-            },
-            "The person comes from {country}" : {
-                "description": "",
-                "variable": "country",
-                "area": "passport",
-                "field": "citership"
-            }
+    "restrictions": {
+        "The person comes from {city}": {
+            "description": "The coronaviris now is extended throught {city}. Now you have to check the person procedency",
+            "variable": "city",
+            "area": "boardingPass",
+            "field": "city"
         },
-    "1": {
+        "The person comes from {country}": {
+            "description": "",
+            "variable": "country",
+            "area": "passport",
+            "field": "citership"
+        },
         "The temperature is {temperature}": {
             "description": "",
             "variable": "temperature",
             "area": "medical",
             "field": "temperature"
-        }
-    },
-    "2": {
+        },
         "The person has {disease} disiue": {
             "description": "",
             "variable": "disease",
             "area": "extra",
             "field": "disease"
-        }
-    },
-    "3": {
-        "The person is older that {age} years old": {
+        },
+        "The person is older that {year} years old": {
             "description": "",
             "variable": "age",
             "area": "passport",
             "field": "age"
-        }
-    },
-    "4": {
-        "The person has an odd ID {}": {
+        },
+        "The person has an odd ID": {
             "description": "",
             "variable": "id",
             "area": "passport",
@@ -55,4 +44,3 @@
         }
     }
 }
-
