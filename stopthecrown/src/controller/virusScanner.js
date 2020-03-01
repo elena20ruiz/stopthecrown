@@ -39,8 +39,7 @@ class VirusScanner {
     
         if(field === "year" && value <= oValue) return true; 
         // 2. Id
-        if(field === "id" && value % 2) return true;
-
+        if(field === "id" && oValue % 2) return true;
 
         // Others
         if(value === oValue){
@@ -78,8 +77,7 @@ class VirusScanner {
         // Specials:
         // Temperature:
         if(field === "temperature" && value <= oValue) return true; 
-
-        if(value === oValue){
+        if(field === "disease" && value === oValue){
             return true;
         }
         return false;

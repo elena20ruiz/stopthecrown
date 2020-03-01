@@ -21,7 +21,7 @@
         "The person has {disease} disiue": {
             "description": "",
             "variable": "disease",
-            "area": "extra",
+            "area": "medical",
             "field": "disease"
         },
         "The person is older that {year} years old": {
