@@ -150,8 +150,8 @@ export default class Airport extends Phaser.Scene {
 
 
         // Set score
-        this.add.image((window.innerWidth/9)/1.05, (window.innerHeight/9)/0.6, 'score').setScale(.3)
-        this.scoreText = this.add.text((window.innerWidth/9)/1.35, (window.innerHeight/9)/1, 'SCORE', { boundsAlignH: "center", boundsAlignV: "middle" ,fill: '#000000', fontSize: '35px', fontStyle: 'bold'});
+        this.add.image((window.innerWidth/9)/1.05, (window.innerHeight/9)/0.85, 'score').setScale(.3)
+        this.scoreText = this.add.text((window.innerWidth/9)/1.1, (window.innerHeight/9)/1, 'SCORE', { boundsAlignH: "center", boundsAlignV: "middle" ,fill: '#000000', fontSize: '35px', fontStyle: 'bold'});
         this.setDinamicText(score, this.scoreText, '');
 
         // Button for medical thing
