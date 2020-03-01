@@ -121,8 +121,13 @@ export default class Airport extends Phaser.Scene {
             } 
             else {
                 score += 10;
+                if (score === 500) {
+                    background.stop();
+                    if (intro.isPlaying) intro.stop();
+                    this.scene.start('win'); 
+                }
             }
-            this.setDinamicText(score, this.scoreText, 'Score');
+            this.setDinamicText(score, this.scoreText, '');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
             console.log(person);
             this.updateInformation(person);
@@ -144,6 +149,11 @@ export default class Airport extends Phaser.Scene {
                 this.scene.start('final');
             } else {
                 score += 10;
+                if (score === 500) {
+                    background.stop();
+                    if (intro.isPlaying) intro.stop();
+                    this.scene.start('win'); 
+                }
             }
             this.setDinamicText(score, this.scoreText, '');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
@@ -157,7 +167,7 @@ export default class Airport extends Phaser.Scene {
 
         // Set score
         this.add.image((window.innerWidth/9)/1.05, (window.innerHeight/9)/0.85, 'score').setScale(.3)
-        this.scoreText = this.add.text((window.innerWidth/9)/1.1, (window.innerHeight/9)/1, 'SCORE', { boundsAlignH: "center", boundsAlignV: "middle" ,fill: '#000000', fontSize: '35px', fontStyle: 'bold'});
+        this.scoreText = this.add.text((window.innerWidth/9)/1.1, (window.innerHeight/9)/1, '', { boundsAlignH: "center", boundsAlignV: "middle" ,fill: '#000000', fontSize: '35px', fontStyle: 'bold'});
         this.setDinamicText(score, this.scoreText, '');
 
         // Button for medical thing
