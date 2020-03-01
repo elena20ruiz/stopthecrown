@@ -79,15 +79,10 @@ export default class Airport extends Phaser.Scene {
 
         let rules = Object.keys(person.rules);
 
-        for (let i = 0; i < rules.length; ++i) {
-            this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50 + (3*i), 'rule:', { fill: '#000000', fontSize: '20px'});           
-            this.setDinamicText(rules[i], this.rule, `${i+1}-`);
-        }
 
         // Load the person icon
+        this.personImage = this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6);
         this.updateInformation(person);
-        this.personImage = this.add.image(window.innerWidth/2.8, window.innerHeight/2.3, `person-${person.person}`).setScale(.6)
-        this.setDinamicImage(person.person, this.personImage);
 
         let people_passed = 0;
         let people_quarantained = 0;
@@ -145,7 +140,6 @@ export default class Airport extends Phaser.Scene {
             console.log
             this.updateInformation(person);
 
-
         });
   
         this.setDinamicText(people_passed, this.pass_text, 'Pass');
@@ -178,6 +172,16 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(person.boardingPass.origin, this.boardingOrigin, "Origin:");
         this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
         this.setDinamicImage(person.person, this.personImage);
+        
+        let rules = Object.keys(person.rules);
+
+        for (let i = 0; i < rules.length; ++i) {
+            if (this.rule != undefined){
+                this.rule.destroy();
+            }
+            this.rule = this.add.text((window.innerWidth/1.25)/1.2, ((window.innerHeight/1.35)/1.22) + 50 + (3*i), 'rule:', { fill: '#000000', fontSize: '20px'});           
+            this.setDinamicText(rules[i], this.rule, `${i+1}-`);
+        }
     }
 
     setDinamicText(information, textItem, staticText) {
@@ -185,7 +189,7 @@ export default class Airport extends Phaser.Scene {
     }
     
     setDinamicImage(person, imageItem) {
-        imageItem.setTexture(`person-${person.person}`);
+        imageItem.setTexture(`person-${person}`);
     }
 
     enterButtonHoverState(button) {
