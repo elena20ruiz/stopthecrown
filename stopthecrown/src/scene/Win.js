@@ -15,6 +15,7 @@ export default class Win extends Phaser.Scene {
         this.load.image('hand', 'assets/hand.png');
         this.load.image('back', 'assets/back-win.png');
         this.load.image('banner', 'assets/banner.png');
+        this.load.image('restart', 'assets/restart.png');
     }
 
     create() {
@@ -25,7 +26,8 @@ export default class Win extends Phaser.Scene {
         // Set Background
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'back');
         
-        this.restartButton = new Phaser.GameObjects.Text(this, window.innerWidth/12,  window.innerHeight/4, 'RESTART', { fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
+        this.add.image(window.innerWidth/1.4, window.innerHeight/1.1, 'restart').setScale(0.6);
+        this.restartButton = new Phaser.GameObjects.Text(this, window.innerWidth/1.4 - 25, window.innerHeight/1.1 - 30, 'Restart', { font: "40px Open Sans", fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
         this.add.existing(this.restartButton);
 
         this.restartButton
