@@ -35,8 +35,12 @@ class VirusScanner {
         const oValue = passport[field];
 
         // Specials:
-        // 1. Age  
-        if(field === "age" && value >= oValue) return true; 
+        // 1. Year  
+    
+        if(field === "year" && value <= oValue) return true; 
+        // 2. Id
+        if(field === "id" && value % 2) return true;
+
 
         // Others
         if(value === oValue){
@@ -46,7 +50,7 @@ class VirusScanner {
     }
 
     _checkBoardingPass(info, field, value) {
-        const passport = info["passport"];
+        const passport = info["boardingPass"];
         const oValue = passport[field];
 
         // Specials:
@@ -67,13 +71,13 @@ class VirusScanner {
         return false;
     }
 
-    _checkMedicalInfo(info, field ,valueconstraint){
+    _checkMedicalInfo(info, field , value){
         const passport = info["medical"];
         const oValue = passport[field];
 
         // Specials:
         // Temperature:
-        if(field === "temperature" && value >= oValue) return true; 
+        if(field === "temperature" && value <= oValue) return true; 
 
         if(value === oValue){
             return true;

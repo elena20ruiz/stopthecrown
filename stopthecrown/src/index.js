@@ -7,7 +7,7 @@ var config = {
     parent: 'phaser-example',
     mode: Phaser.Scale.FIT,
     width: window.innerWidth,
-	  height: window.innerHeight,
+	height: window.innerHeight,
     scene:  [Airport, Final]
 };
 

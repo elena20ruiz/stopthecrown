@@ -13,8 +13,7 @@ class PersonInformation {
         const extraInfo = this.getExtraInfo()
         const boardingPass = this.getBoardingPass()
         const medicalInfo = this.getMedicalInfo();
-        const rules = this.getRules(currentRules);
-        console.log(passport);  
+        const rules = this.getRules(currentRules, level);
         var data = {
             'person': person,
             'passport': passport,
@@ -23,7 +22,8 @@ class PersonInformation {
             'rules': rules,
             'medical': medicalInfo,
         }
-        data["coronavirus"] = VirusScanner.check();
+        let corona = VirusScanner.check(rules, data);
+        data["coronavirus"] = corona;
         return data;
     }
 
@@ -31,15 +31,12 @@ class PersonInformation {
     getPerson(){
         var max = 6;
         const random = Math.floor(Math.random() * max) + 1;
-        const path = 'data/people/man-' + random.valueOf() + '.png';
-        return path;
+        return random.valueOf();
     }
 
     getPassport(){
         const name = this.getVariable("name");
-        console.log(name);
         const lastName = this.getVariable("lastName");
-        console.log(lastName);
         const id = Math.floor(Math.random() * 999999) + 60000;
         const citizenship = this.getVariable("country");
         var birthPlace = citizenship;
@@ -56,12 +53,12 @@ class PersonInformation {
             "citizenship": citizenship,
             "birthPlace": birthPlace,
             "birthday": birthday.toLocaleDateString("es-US"),
-            "age": 2020 - birthday.getFullYear()
+            "year": 2020 - birthday.getFullYear()
         }
     }
 
     getExtraInfo(){
-        return "hola"
+        return {};
     }
 
     getBoardingPass(){
@@ -74,8 +71,16 @@ class PersonInformation {
 
     getMedicalInfo(){
         const temp = Math.floor(Math.random() * (45-34)) + 34;
+        
+        const r = Math.floor(Math.random() * 6);
+        var disease = "none";
+        if (r == 5){
+            disease =  this.getVariable("disease");
+        }
+
         return {
-            "temperature": temp
+            "temperature": temp,  
+            "disease": disease
         }
     }
 
@@ -85,38 +90,52 @@ class PersonInformation {
 
 
         // New rule
-        const nextLevel = nRules;
-        const requirements = jsonRules[nextLevel];
-        console.log(requirements);
-        // Get random from the next level
+        const requirements = jsonRules["restrictions"];
         const ruleKeys = Object.keys(requirements);
-        const max = ruleKeys.length - 1;
-        const random = Math.floor(Math.random() * Math.floor(max));
+        const max = ruleKeys.length - 1; 
 
-        // Get random position
-        var key = ruleKeys[random];
+        var isNew = false;
+        while(!isNew){
+            // Get random from the next level
+            const random = Math.floor(Math.random() * Math.floor(max));
+            
+            var key = ruleKeys[random];
+
+            var area = requirements[key]["area"];
+            var field = requirements[key]["field"];
+            isNew = true;
+            for(var i in currentRules){
+                if(currentRules[i]["area"] == area && currentRules[i]["field"] == field) {
+                    isNew = false;
+                }
+            }
+        }
+        console.log(requirements[key]);
         var rule = requirements[key];
         var description = rule["description"];
 
-        var variable = key.match(/{(.*)}/).pop();
-        if(variable.length > 0){
+        var variable = key.match(/{(.*)}/);
+        if(variable){
+            variable = variable.pop();
             var rVariable = this.getVariable(variable);
             
             key = key.replace("{" + variable + "}", rVariable);
             description = description.replace("{" + variable + "}", rVariable);
         }
-
         var newRule = {
             "description": description,
             "variable": rule["variable"],
             "area": rule["area"],
             "field": rule["field"]
         }
-        if (variable.length > 0 ){
+        if (variable ){
             newRule["value"] = rVariable;
         }
-
+        console.log("Abans")
+        console.log(currentRules);
         currentRules[key] = newRule;
+        console.log("Despres")
+        console.log(currentRules)
         return currentRules; 
     }
 
