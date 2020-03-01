@@ -144,8 +144,24 @@ export default class Airport extends Phaser.Scene {
         // Set score
         this.scoreBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/9,  window.innerHeight/9, window.innerWidth/7, window.innerHeight/7, 0xA1A1A1, 0.8);
         this.add.existing(this.scoreBox);
-        this.scoreText = this.add.text((window.innerWidth/9)/1.5, (window.innerHeight/9)/1.2, 'Score', { fill: '#000000', fontSize: '25px', fontStyle: 'bold'});
-        this.setDinamicText(score, this.scoreText, 'Score');
+        this.scoreText = this.add.text((window.innerWidth/9)/1.9, (window.innerHeight/9)/1.3, 'SCORE', { fill: '#000000', fontSize: '40px', fontStyle: 'bold'});
+        this.setDinamicText(score, this.scoreText, 'SCORE');
+
+        // Button for medical thing
+        this.medicalButton = new Phaser.GameObjects.Text(this, window.innerWidth/25,  window.innerHeight/5, 'Medical Information', { fill: '#000000', backgroundColor: '#A1A1A1', fontSize: '25px', fontStyle: 'bold'});
+        this.add.existing(this.medicalButton);
+
+        this.medicalBox = new Phaser.GameObjects.Rectangle(this, window.innerWidth/7.2, window.innerHeight/2.4, window.innerWidth/5, window.innerHeight/3, 0xFFFFFF);
+
+        this.medicalButton
+          .setInteractive({ useHandCursor: true })
+          .on('pointerover', () => this.enterButtonHoverState(this.medicalButton) )
+          .on('pointerout', () => this.enterButtonRestState(this.medicalButton, '#000') )
+          .on('pointerdown', () => this.enterButtonActiveState(this.medicalButton) )
+          .on('pointerup', () => {
+              this.add.existing(this.medicalBox);
+        });
+
     }
 
     update() {
@@ -167,7 +183,11 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(person.boardingPass.origin, this.boardingOrigin, "Origin:");
         this.setDinamicText(person.passport.birthday, this.birthdayPassport, 'Birthday:');
         this.setDinamicImage(person.person, this.personImage);
+        if (this.medicalBox !== undefined) {
+            this.medicalBox.destroy();
+        }
         
+        console.log(person)
         let rules = Object.keys(person.rules);
         console.log(rules)
 
