@@ -27,10 +27,8 @@ export default class Airport extends Phaser.Scene {
         person =  personInformation.nextPerson({},1);
         
         console.log(person);
-        // console.log(personInformation.nextPerson())
 
         // Set Background
-        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#3498db");
         this.add.image(window.innerWidth/2, window.innerHeight/5, 'bg');
 
         // Set left column
