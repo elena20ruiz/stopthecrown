@@ -37,6 +37,9 @@ class VirusScanner {
         // Specials:
         // 1. Age  
         if(field === "age" && value >= oValue) return true; 
+        // 2. Id
+        if(field === "id" && value % 2) return true;
+
 
         // Others
         if(value === oValue){
