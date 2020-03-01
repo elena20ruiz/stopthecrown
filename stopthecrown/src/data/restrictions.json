@@ -7,37 +7,37 @@
             "field": "origin"
         },
         "The person is from {country}": {
-            "description": "",
+            "description": "The scientist discovered that people from {country} has 45% more chances to have the virus, don't let them in",
             "variable": "country",
             "area": "passport",
             "field": "citizenship"
         },
         "The temperature is {temperature}": {
-            "description": "",
+            "description": "Reports says that one of the symptoms of the virus is fever, check the temperature",
             "variable": "temperature",
             "area": "medical",
             "field": "temperature"
         },
         "The person has {disease} disiue": {
-            "description": "",
+            "description": "People with {disease} has less defenses and are more prone to have the virus",
             "variable": "disease",
             "area": "medical",
             "field": "disease"
         },
         "The person is older that {year} years old": {
-            "description": "",
+            "description": "People older than {year} has less defenses, and is more probable that they are infected",
             "variable": "year",
             "area": "passport",
             "field": "year"
         },
         "The person has an odd ID": {
-            "description": "",
+            "description": "We can't be sure of who has the virus! Filter by it's id",
             "variable": "id",
             "area": "passport",
             "field": "id"
         },
         "The person is called {name}": {
-            "description": "",
+            "description": "All {name} are infected! Don't let them pass!",
             "variable": "name",
             "area": "passport",
             "field": "name"
