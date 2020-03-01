@@ -4,7 +4,7 @@
             "description": "The coronaviris now is extended throught {city}. Now you have to check the person procedency",
             "variable": "city",
             "area": "boardingPass",
-            "field": "city"
+            "field": "origin"
         },
         "The person is from {country}": {
             "description": "",
