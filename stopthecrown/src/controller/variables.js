@@ -7,12 +7,25 @@ const nameJson = require('../data/variables/name.json');
 const lastNameJson = require('../data/variables/lastname.json');
 
 
+function intArray(min, max) {
+    var output = []
+    var i = min;
+    while(i <= max) {
+        output.push(i);
+        i += 1;
+    }
+    return output;
+}
+
 const variables = {
     'city': cityJson["cities"],
     'country':  countryJson["countries"],
     'disease': diseasesJson["disease"],
     'name': nameJson["names"],
-    'lastName': lastNameJson["last-name"]
+    'lastName': lastNameJson["last-name"],
+    'temperature': intArray(39, 46),
+    'age': intArray(50, 100),
+    'id': intArray(600000, 999999)
 }
 
 export default variables;

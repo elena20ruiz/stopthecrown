@@ -23,7 +23,8 @@ class PersonInformation {
             'rules': rules,
             'medical': medicalInfo,
         }
-        data["coronavirus"] = VirusScanner.check();
+        let corona = VirusScanner.check(rules, data);
+        data["coronavirus"] = false;
         return data;
     }
 
@@ -73,6 +74,7 @@ class PersonInformation {
 
     getMedicalInfo(){
         const temp = Math.floor(Math.random() * (45-34)) + 34;
+        console.log(temp);
         return {
             "temperature": temp
         }
@@ -80,6 +82,8 @@ class PersonInformation {
 
     getRules(currentRules, level){
         const nRules = Object.keys(currentRules).length;
+        console.log('Levels' + nRules + ' ' + level);
+        console.log(currentRules);
         if( nRules == level) return currentRules;
 
 
@@ -91,20 +95,22 @@ class PersonInformation {
         const ruleKeys = Object.keys(requirements);
         const max = ruleKeys.length - 1;
         const random = Math.floor(Math.random() * Math.floor(max));
-
+        console.log("aqui")
         // Get random position
         var key = ruleKeys[random];
         var rule = requirements[key];
         var description = rule["description"];
+        console.log("dasda")
 
         var variable = key.match(/{(.*)}/).pop();
+        console.log(variable);
         if(variable.length > 0){
             var rVariable = this.getVariable(variable);
             
             key = key.replace("{" + variable + "}", rVariable);
             description = description.replace("{" + variable + "}", rVariable);
         }
-
+        console.log("joliwis")
         var newRule = {
             "description": description,
             "variable": rule["variable"],
@@ -114,13 +120,17 @@ class PersonInformation {
         if (variable.length > 0 ){
             newRule["value"] = rVariable;
         }
-
+        console.log("Abans")
+        console.log(currentRules);
         currentRules[key] = newRule;
+        console.log("Despres")
+        console.log(currentRules)
         return currentRules; 
     }
 
     getVariable(variable){
         var content = variables[variable];
+
         var max = content.length - 1;
         const random = Math.floor(Math.random() * Math.floor(max));
         return content[random];
