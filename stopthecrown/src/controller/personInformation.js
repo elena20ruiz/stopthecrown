@@ -23,7 +23,8 @@ class PersonInformation {
             'rules': rules,
             'medical': medicalInfo,
         }
-        data["coronavirus"] = VirusScanner.check();
+        let corona = VirusScanner.check(rules, data);
+        data["coronavirus"] = corona;
         return data;
     }
 

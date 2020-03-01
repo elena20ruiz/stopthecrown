@@ -46,7 +46,7 @@ class VirusScanner {
     }
 
     _checkBoardingPass(info, field, value) {
-        const passport = info["passport"];
+        const passport = info["boardingPass"];
         const oValue = passport[field];
 
         // Specials:
