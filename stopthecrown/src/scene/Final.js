@@ -22,7 +22,7 @@ export default class Final extends Phaser.Scene {
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'corona');
         
 
-        this.finalMessageLose = new Phaser.GameObjects.Text(this, window.innerWidth/5, window.innerHeight/8, 'ALL YOUR CITY HAS BEEN INFECTED 😷', { fill: '#000000', fontSize: '60px', fontStyle: 'bold'});
+        this.finalMessageLose = new Phaser.GameObjects.Text(this, window.innerWidth/5, window.innerHeight/8, 'ALL YOUR CITY HAS BEEN INFECTED 😷', { font:"60px Arial", fill: '#000000',  fontStyle: 'bold'});
         this.add.existing(this.finalMessageLose);
 
         
