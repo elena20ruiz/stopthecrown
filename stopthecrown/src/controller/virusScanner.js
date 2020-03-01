@@ -67,13 +67,13 @@ class VirusScanner {
         return false;
     }
 
-    _checkMedicalInfo(info, field ,valueconstraint){
+    _checkMedicalInfo(info, field , value){
         const passport = info["medical"];
         const oValue = passport[field];
 
         // Specials:
         // Temperature:
-        if(field === "temperature" && value >= oValue) return true; 
+        if(field === "temperature" && value <= oValue) return true; 
 
         if(value === oValue){
             return true;
