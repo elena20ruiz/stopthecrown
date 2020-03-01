@@ -135,7 +135,6 @@ export default class Airport extends Phaser.Scene {
             }
             this.setDinamicText(score, this.scoreText, 'Score');
             person =  personInformation.nextPerson(person.rules, Math.floor(score/100) + 1);
-            console.log
             this.updateInformation(person);
 
         });
@@ -164,11 +163,9 @@ export default class Airport extends Phaser.Scene {
         this.setDinamicText(person.medical.temperature, this.medicalTemperature, 'Temperature:');
         this.medicalTemperature.setVisible(false);
 
-        /*
         this.medicalDissease = this.add.text((window.innerWidth/7.2)/2.9, ((window.innerHeight/2.4)/1.5) + 80, 'Disease:', { fill: '#000000', fontSize: '20px'});
         this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
         this.medicalDissease.setVisible(false);
-        */
 
         this.medicalButton
           .setInteractive({ useHandCursor: true })
@@ -176,7 +173,6 @@ export default class Airport extends Phaser.Scene {
           .on('pointerout', () => this.enterButtonRestState(this.medicalButton, '#000') )
           .on('pointerdown', () => this.enterButtonActiveState(this.medicalButton) )
           .on('pointerup', () => {
-              console.log("h")
               this.add.existing(this.medicalBox).setVisible(true);
               this.add.existing(this.medicalTitle).setVisible(true);
               this.medicalTemperature.setVisible(true);
@@ -185,15 +181,7 @@ export default class Airport extends Phaser.Scene {
 
     }
 
-    update() {
-
-        // Check click
-
-        // Check if fail or not -> 
-        // If fails -> go to the other scene
-
-        // If pass -> next person
-    }
+    update() {   }
 
     updateInformation(person){
         this.setDinamicText(person.passport.id, this.IDPassport, 'ID:');
@@ -209,8 +197,8 @@ export default class Airport extends Phaser.Scene {
             this.add.existing(this.medicalTitle).setVisible(false);
             this.setDinamicText(person.medical.temperature, this.medicalTemperature, 'Temperature:');
             this.medicalTemperature.setVisible(false);
-            // this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
-            // this.medicalDissease.setVisible(false);
+            this.setDinamicText(person.medical.disease, this.medicalDissease, 'Disease:');
+            this.medicalDissease.setVisible(false);
         }
         
         console.log(person)
