@@ -39,7 +39,7 @@
   "description": "A Phaser 3 Project Template",
   "devDependencies": {
     "raw-loader": "^0.5.1",
-    "webpack": "^3.12.0",
+    "webpack": "^5.75.0",
     "webpack-dev-server": "^2.11.5"
   },
   "homepage": "https://github.com/photonstorm/phaser3-project-template#readme",
